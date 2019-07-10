@@ -1,3 +1,7 @@
+body {
+    margin-top: 3em;
+}
+
 .erebor-toolbar {
     display: flex;
     align-content: center;
@@ -10,7 +14,7 @@
     right: 0;
     height: 2.5em;
 
-    padding: 0 0.5em;
+    padding: 0 0.7em;
 
     background: rgb(246, 246, 246);
     border-bottom: 1px solid rgb(227,227,227);
@@ -25,34 +29,15 @@
     max-width: 960px;
 }
 
-.erebor-toolbar-button,
-.erebor-toolbar-years {
-    font-size: 12px;
-    border: 1px solid rgb(231, 231, 231);
-    background: rgb(255, 255, 255);
-
-    box-shadow: 0 0.5px 0.5px rgb(226, 226, 226);
-
-    user-select: none;
-}
-
-.erebor-toolbar-button:active {
-    background: rgb(243, 243, 243);
-}
-
-.erebor-toolbar-years-button {
-    border-left: 1px solid rgb(231, 231, 231);
-}
-
-.erebor-toolbar-years-button.is-selected {
-    background: rgb(243, 243, 243);
-    box-shadow: inset 0 -0.5px 0.5px rgb(218, 218, 218);
-}
-
 .erebor-toolbar-title {
     padding-top: 0.25em;
     text-decoration: underline rgb(214, 214, 214);
     cursor: pointer;
+}
+
+.erebor-toolbar-title-year {
+    display: none;
+    padding: 0 0.25em;
 }
 
 .is-stretched {
@@ -62,4 +47,20 @@
     align-items: center;
 
     flex-grow: 1;
+}
+
+
+@media screen and (max-width: 512px) {
+    .erebor-toolbar-title {
+        text-align: right;
+        justify-content: flex-end;
+    }
+
+    .erebor-toolbar-title-year {
+        display: inline;
+    }
+
+    .erebor-toolbar-years {
+        display: none;
+    }
 }

@@ -25,3 +25,29 @@
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
 }
+
+.erebor-button--gray,
+.erebor-button-group--gray {
+    font-size: 12px;
+    border: 1px solid rgb(231, 231, 231);
+    background: rgb(255, 255, 255);
+    color: rgb(69, 69, 69);
+
+    box-shadow: 0 0.5px 0.5px rgb(226, 226, 226);
+
+    user-select: none;
+}
+
+.erebor-button--gray:active,
+.erebor-button-group .erebor-button:active {
+    background: rgb(243, 243, 243);
+}
+
+.erebor-button-group--gray .erebor-button {
+    border-left: 1px solid rgb(231, 231, 231);
+}
+
+.erebor-button-group--gray .erebor-button.is-selected {
+    background: rgb(243, 243, 243);
+    box-shadow: inset 0 -0.5px 0.5px rgb(218, 218, 218);
+}

@@ -1,0 +1,46 @@
+.erebor-calendar-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+    width: 80rem;
+    max-width: 960px;
+
+    margin: 0 auto;
+    padding: 0.5em;
+}
+
+.erebor-calendar-header .erebor-month-wrapper {
+    font-size: 24px;
+    font-weight: lighter;
+
+    flex-grow: 1;
+}
+
+.erebor-calendar-header .erebor-month-wrapper .erebor-month {
+    font-weight: normal;
+}
+
+.erebor-week-toggle .erebor-button {
+    padding: 0.5em 0.7em;
+}
+
+.erebor-week-toggle .erebor-week-today-icon {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    .erebor-calendar-header {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .erebor-week-toggle .erebor-week-today-text {
+        display: none;
+    }
+
+    .erebor-week-toggle .erebor-week-today-icon {
+        display: inline-block;
+    }
+}

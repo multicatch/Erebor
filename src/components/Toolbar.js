@@ -15,6 +15,7 @@ class Toolbar extends Component {
         <div
             className={"erebor-toolbar-years-button erebor-button " + (year === this.state.selectedYear ? "is-selected" : "")}
             onClick={() => this.selectYear(year)}
+            key={`${this.title}-${year}-toggle`}
         >
             {year}
         </div>
@@ -24,13 +25,13 @@ class Toolbar extends Component {
         return (
             <div className="erebor-toolbar">
                 <div className="erebor-toolbar-content">
-                    <div className="erebor-toolbar-button erebor-button">
+                    <div className="erebor-toolbar-button erebor-button erebor-button--gray">
                         Filtrowanie
                     </div>
                     <div className="erebor-toolbar-title is-stretched">
-                        {this.state.title}
+                        {this.state.title} <span className="erebor-toolbar-title-year">{this.state.selectedYear}</span>
                     </div>
-                    <div className="erebor-toolbar-years erebor-button-group">
+                    <div className="erebor-toolbar-years erebor-button-group erebor-button-group--gray">
                         {this.years()}
                     </div>
                 </div>
