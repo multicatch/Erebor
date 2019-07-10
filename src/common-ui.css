@@ -1,0 +1,27 @@
+.erebor-button {
+    padding: 0.5em 0.75em;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.erebor-button-group {
+    border-radius: 8px;
+}
+
+.erebor-button-group > .erebor-button {
+    display: inline-block;
+    padding: 0.5em 0.5em;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.erebor-button-group > .erebor-button:first-child {
+    border-left: none;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.erebor-button-group > .erebor-button:last-child {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+}
