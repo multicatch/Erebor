@@ -18,10 +18,10 @@ class CalendarHeader extends Component {
                 </div>
                 <div className="erebor-week-toggle">
                     <div className="erebor-button-group erebor-button-group--gray">
-                        <div className="erebor-button erebor-week-back"><FontAwesomeIcon icon={faChevronLeft} /></div>
-                        <div className="erebor-button erebor-week-today-icon"><FontAwesomeIcon icon={faCalendarDay}/></div>
-                        <div className="erebor-button erebor-week-today-text">Dzisiaj</div>
-                        <div className="erebor-button erebor-week-forward"><FontAwesomeIcon icon={faChevronRight} /></div>
+                        <div className="erebor-button erebor-week-back" onClick={this.props.decreaseDate}><FontAwesomeIcon icon={faChevronLeft} /></div>
+                        <div className="erebor-button erebor-week-today-icon" onClick={this.props.resetDate}><FontAwesomeIcon icon={faCalendarDay}/></div>
+                        <div className="erebor-button erebor-week-today-text" onClick={this.props.resetDate}>Dzisiaj</div>
+                        <div className="erebor-button erebor-week-forward" onClick={this.props.advanceDate}><FontAwesomeIcon icon={faChevronRight} /></div>
                     </div>
                 </div>
             </div>

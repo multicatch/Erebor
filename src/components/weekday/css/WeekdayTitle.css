@@ -1,0 +1,26 @@
+.erebor-weekday-title {
+    width: calc(100% / 8);
+    text-align: center;
+}
+
+.erebor-weekday-day {
+    display: inline-flex;
+    margin-left: -1px;
+    width: 1.5em;
+    height: 1.5em;
+    align-items: center;
+    justify-content: center;
+}
+
+.erebor-weekday-day.is-today {
+    border-radius: 100%;
+
+    background: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+@media screen and (max-width: 768px) {
+    .erebor-weekday-title {
+        width: calc(700% / 8);
+    }
+}
