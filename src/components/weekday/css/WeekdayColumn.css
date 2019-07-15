@@ -1,0 +1,20 @@
+.erebor-weekday-column {
+    display: block;
+    width: calc(100% / 8);
+    height: calc(24 * 64px);
+    border-right: 1px solid rgb(226, 226, 226);
+}
+
+.erebor-weekday-column:last-child {
+    border-right: none;
+}
+
+.erebor-weekday-column.is-weekend {
+    background: rgb(241, 241, 241);
+}
+
+@media screen and (max-width: 768px) {
+    .erebor-weekday-column {
+        width: calc(700% / 8);
+    }
+}

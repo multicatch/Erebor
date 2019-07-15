@@ -1,7 +1,11 @@
+.erebor-hours-column {
+    width: calc(100% / 8);
+}
+
 .erebor-hour-cell {
     margin-top: -6px;
     margin-bottom: 6px;
-    width: calc(100% / 8);
+    width: 100%;
     font-size: 12px;
     display: flex;
     height: 64px;

@@ -16,7 +16,9 @@
 }
 
 .erebor-week-view-content {
+    display: flex;
     position: relative;
+    flex-direction: row;
 
     overflow-y: scroll;
     -ms-overflow-style: none;

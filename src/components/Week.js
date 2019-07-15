@@ -4,6 +4,7 @@ import HoursTitle from "./hours/HoursTitle"
 import WeekdayTitle from "./weekday/WeekdayTitle"
 import DateUtils from "../utils/DateUtils"
 import HoursColumn from './hours/HoursColumn'
+import WeekdayColumn from './weekday/WeekdayColumn'
 
 class Week extends Component {
 
@@ -44,6 +45,7 @@ class Week extends Component {
                     <HoursColumn/>
                     {this.hourSeparators()}
                     {this.currentHourLine()}
+                    {this.weekdayColumns()}
                 </div>
             </div>
         )
@@ -66,14 +68,30 @@ class Week extends Component {
 
     hourSeparators = () =>
         new Array(24).fill(0).map((_, index) => {
-            return <div className="erebor-hour-separator" key={"erebor-hour-separator-" + index}
-                        style={{"top": Week.WEEK_CONTENT_OFFSET + index * Week.HOUR_HEIGHT + "px"}}/>
+            return <div className="erebor-hour-separator"
+                        key={"erebor-hour-separator-" + index}
+                        style={{"top": Week.WEEK_CONTENT_OFFSET + index * Week.HOUR_HEIGHT + "px"}}
+            />
         })
 
     currentHourLine = () => {
         const top = Week.HOUR_HEIGHT * (this.state.now.getHours() + this.state.now.getMinutes() / 60)
-        return (<div className="erebor-hour-line" style={{"top": Week.WEEK_CONTENT_OFFSET + top + "px"}} />)
+        return <div
+            className="erebor-hour-line"
+            style={{"top": Week.WEEK_CONTENT_OFFSET + top + "px"}}
+        />
     }
+
+    weekdayColumns = () =>
+        new Array(this.props.display).fill(0).map((_, index) => {
+            const currentDay = new Date(this.props.startOfWeek.getTime())
+            currentDay.setUTCDate(currentDay.getUTCDate() + index)
+            const dayOfWeek = DateUtils.getDayOfWeek(currentDay)
+            return <WeekdayColumn
+                key={"weekday-column-" + index}
+                dayOfWeek={dayOfWeek}
+            />
+        })
 
 }
 
