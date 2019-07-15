@@ -9,6 +9,10 @@ class DateUtils {
         }
         return date.getUTCDay() - 1
     }
+
+    static formatHours(hours) {
+        return (new Array(2).fill(0).join('') + hours).slice(-2)
+    }
 }
 
 export default DateUtils

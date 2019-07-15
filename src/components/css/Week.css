@@ -16,13 +16,36 @@
 }
 
 .erebor-week-view-content {
+    position: relative;
+
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+
+    padding-top: 12px;
+    max-height: calc(100vh - 8em);
 }
 
 .erebor-week-view-content::-webkit-scrollbar {
     display: none;
+}
+
+.erebor-week-view-content .erebor-hour-separator {
+    position: absolute;
+    display: block;
+    height: 1px;
+    width: calc(700% / 8 - 4px);
+    left: calc(100% / 8 + 4px);
+    background: rgb(226, 226, 226);
+}
+
+.erebor-week-view-content  .erebor-hour-line {
+    position: absolute;
+    display: block;
+    height: 1px;
+    width: calc(700% / 8 - 4px);
+    left: calc(100% / 8 + 4px);
+    background: rgb(245, 0, 11);
 }
 
 @media screen and (max-width: 1000px) {

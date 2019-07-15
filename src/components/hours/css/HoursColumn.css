@@ -1,0 +1,10 @@
+.erebor-hour-cell {
+    margin-top: -6px;
+    margin-bottom: 6px;
+    width: calc(100% / 8);
+    font-size: 12px;
+    display: flex;
+    height: 64px;
+    color: rgb(131, 131, 131);
+    justify-content: flex-end;
+}
