@@ -9,7 +9,10 @@ class Toolbar extends Component {
         selectedYear: 2
     }
 
-    selectYear = (selectedYear) => this.setState({selectedYear})
+    selectYear = (selectedYear) => {
+        this.props.updateTimetable(842)
+        this.setState({selectedYear})
+    }
 
     years = () => this.state.years.map(year =>
         <div

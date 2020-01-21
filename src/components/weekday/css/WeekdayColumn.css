@@ -5,6 +5,10 @@
     border-right: 1px solid rgb(226, 226, 226);
 }
 
+.erebor-weekday-column.is-first {
+    margin-left: 4px;
+}
+
 .erebor-weekday-column:last-child {
     border-right: none;
 }
@@ -16,5 +20,6 @@
 @media screen and (max-width: 768px) {
     .erebor-weekday-column {
         width: calc(700% / 8);
+        margin-left: 4px;
     }
 }

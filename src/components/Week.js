@@ -5,6 +5,7 @@ import WeekdayTitle from "./weekday/WeekdayTitle"
 import DateUtils from "../utils/DateUtils"
 import HoursColumn from './hours/HoursColumn'
 import WeekdayColumn from './weekday/WeekdayColumn'
+import Timetable from '../utils/Timetable'
 
 class Week extends Component {
 
@@ -21,14 +22,14 @@ class Week extends Component {
         const height = this.viewContent.scrollHeight
         this.viewContent.scrollTop = 8 * height / 24
 
-        this.setState({ updateLineInterval: setInterval(this.updateHour, 60000) })
+        this.setState({ updateLineInterval: setInterval(this.updateTime, 60000) })
     }
 
     componentWillUnmount = () => {
         clearInterval(this.state.updateLineInterval)
     }
 
-    updateHour = () => {
+    updateTime = () => {
         this.setState({ now: new Date() })
     }
 
@@ -70,15 +71,15 @@ class Week extends Component {
         new Array(24).fill(0).map((_, index) => {
             return <div className="erebor-hour-separator"
                         key={"erebor-hour-separator-" + index}
-                        style={{"top": Week.WEEK_CONTENT_OFFSET + index * Week.HOUR_HEIGHT + "px"}}
+                        style={{"top": Week.WEEK_CONTENT_OFFSET + Timetable.getOffsetFor(`${index}:00`) + "px"}}
             />
         })
 
     currentHourLine = () => {
-        const top = Week.HOUR_HEIGHT * (this.state.now.getHours() + this.state.now.getMinutes() / 60)
+        const time = `${this.state.now.getHours()}:${this.state.now.getMinutes()}`
         return <div
             className="erebor-hour-line"
-            style={{"top": Week.WEEK_CONTENT_OFFSET + top + "px"}}
+            style={{"top": Week.WEEK_CONTENT_OFFSET + Timetable.getOffsetFor(time) + "px"}}
         />
     }
 
@@ -87,9 +88,11 @@ class Week extends Component {
             const currentDay = new Date(this.props.startOfWeek.getTime())
             currentDay.setUTCDate(currentDay.getUTCDate() + index)
             const dayOfWeek = DateUtils.getDayOfWeek(currentDay)
+            const timetable = Timetable.filterDay(dayOfWeek + 1, this.props.timetable)
             return <WeekdayColumn
                 key={"weekday-column-" + index}
                 dayOfWeek={dayOfWeek}
+                timetable={timetable}
             />
         })
 

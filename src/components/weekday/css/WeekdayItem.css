@@ -1,0 +1,28 @@
+.erebor-weekday-item {
+    position: absolute;
+    width: calc(100% / 8 - 2px);
+
+    background: #fff;
+
+    margin: 1px 1px 1px 0;
+    padding: 2px 2px 2px 4px;
+
+    font-size: 12px;
+}
+
+.erebor-weekday-item.is-blue {
+    background: rgba(206, 229, 237, 0.78);
+    border-left: 2px solid #3db9df;
+    color: #3185bc;
+}
+
+.erebor-weekday-item-title {
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 768px) {
+    .erebor-weekday-item {
+        width: calc(700% / 8);
+    }
+}

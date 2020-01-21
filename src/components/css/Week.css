@@ -41,13 +41,14 @@
     background: rgb(226, 226, 226);
 }
 
-.erebor-week-view-content  .erebor-hour-line {
+.erebor-week-view-content .erebor-hour-line {
     position: absolute;
     display: block;
     height: 1px;
     width: calc(700% / 8 - 4px);
     left: calc(100% / 8 + 4px);
     background: rgb(245, 0, 11);
+    z-index: 10;
 }
 
 @media screen and (max-width: 1000px) {

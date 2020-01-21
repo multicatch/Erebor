@@ -5,11 +5,13 @@ import Toolbar from './components/Toolbar'
 import CalendarHeader from './components/CalendarHeader';
 import Week from "./components/Week";
 import DateUtils from './utils/DateUtils'
+import Timetable from './utils/Timetable'
 
 class App extends Component {
     state = {
         startOfWeek: new Date(),
-        timeProgression: 0
+        timeProgression: 0,
+        timetable: []
     }
 
     componentWillMount = () => {
@@ -33,7 +35,9 @@ class App extends Component {
     render() {
         return (
             <div className="erebor-app">
-                <Toolbar/>
+                <Toolbar
+                    updateTimetable={this.updateTimetable}
+                />
                 <CalendarHeader
                     advanceDate={this.advanceDate}
                     decreaseDate={this.decreaseDate}
@@ -42,6 +46,7 @@ class App extends Component {
                 <Week
                     startOfWeek={this.state.startOfWeek}
                     display={this.state.timeProgression}
+                    timetable={this.state.timetable}
                 />
             </div>
         )
@@ -70,6 +75,13 @@ class App extends Component {
             return 1;
         }
         return 7;
+    }
+
+    updateTimetable = (group) => {
+        Timetable.fetchTimetable(group).then(timetable => {
+            console.log(timetable)
+            this.setState({timetable})
+        })
     }
 }
 
