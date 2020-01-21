@@ -88,7 +88,7 @@ class Week extends Component {
             const currentDay = new Date(this.props.startOfWeek.getTime())
             currentDay.setUTCDate(currentDay.getUTCDate() + index)
             const dayOfWeek = DateUtils.getDayOfWeek(currentDay)
-            const timetable = Timetable.filterDay(dayOfWeek + 1, this.props.timetable)
+            const timetable = Timetable.filterByDate(Timetable.filterDayOfWeek(dayOfWeek + 1, this.props.timetable), this.props.startOfWeek)
             return <WeekdayColumn
                 key={"weekday-column-" + index}
                 dayOfWeek={dayOfWeek}

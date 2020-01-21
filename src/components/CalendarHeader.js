@@ -5,16 +5,29 @@ import {faCalendarDay, faChevronLeft, faChevronRight} from "@fortawesome/free-so
 
 class CalendarHeader extends Component {
 
-    state = {
-        month: 'lipiec',
-        year: '2019'
-    }
+    monthNames = [
+        'styczeń',
+        'luty',
+        'marzec',
+        'kwiecień',
+        'maj',
+        'czerwiec',
+        'lipiec',
+        'sierpień',
+        'wrzesień',
+        'październik',
+        'listopad',
+        'grudzień'
+    ]
 
     render() {
+        const year = this.props.startOfWeek.getUTCFullYear()
+        const month = this.monthNames[this.props.startOfWeek.getUTCMonth()]
+
         return (
             <div className="erebor-calendar-header">
                 <div className="erebor-month-wrapper">
-                    <span className="erebor-month">{this.state.month}</span> {this.state.year}
+                    <span className="erebor-month">{month}</span> {year}
                 </div>
                 <div className="erebor-week-toggle">
                     <div className="erebor-button-group erebor-button-group--gray">

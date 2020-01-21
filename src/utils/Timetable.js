@@ -1,8 +1,51 @@
+import DateUtils from './DateUtils'
+
 class Timetable {
     static HOUR_HEIGHT = 64
 
-    static filterDay(day, timetable) {
+    static filterDayOfWeek(day, timetable) {
         return timetable.filter(event => parseInt(event.event_array[0].weekday) === parseInt(day))
+    }
+
+    static filterByDate(timetable, startOfWeek) {
+        return timetable
+            .filter(event => {
+                const subjectWords = event.subject.split(" ")
+                if (/[0-9]{1,2}\\[0-9]{1,2}/.test(subjectWords[0])) {
+                    const monthAndDate = subjectWords[0].split("\\")
+                    const month = parseInt(monthAndDate[0])
+                    const day = parseInt(monthAndDate[1])
+
+                    return DateUtils.isDayInWeek(day, month, startOfWeek)
+                }
+                return true
+            })
+            .filter(event => {
+                const subject = event.subject
+                let isMatching = true
+                const sinceMatch = subject.match(/(?:OD )(?:([0-9]{1,2}\.[IVX]{1,3}))/)
+                const untilMatch = subject.match(/(?:DO )(?:([0-9]{1,2}\.[IVX]{1,3}))/)
+                if (sinceMatch != null) {
+                    const since = sinceMatch[1].split(".")
+                    const day = parseInt(since[0])
+                    const month = DateUtils.monthFromRoman(since[1])
+
+                    isMatching &= month < startOfWeek.getUTCMonth()
+                        || (month === startOfWeek.getUTCMonth() && day <= startOfWeek.getUTCDate())
+                }
+
+                if (untilMatch != null) {
+                    const until = untilMatch[1].split(".")
+                    const day = parseInt(until[0])
+                    const month = DateUtils.monthFromRoman(until[1])
+
+                    isMatching &= month < startOfWeek.getUTCMonth()
+                        || (month === startOfWeek.getUTCMonth() && day >= startOfWeek.getUTCDate())
+                        || DateUtils.isDayInWeek(day, month + 1, startOfWeek)
+                }
+
+                return isMatching
+            })
     }
 
     static fetchTimetable(group) {

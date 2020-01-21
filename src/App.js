@@ -39,6 +39,7 @@ class App extends Component {
                     updateTimetable={this.updateTimetable}
                 />
                 <CalendarHeader
+                    startOfWeek={this.state.startOfWeek}
                     advanceDate={this.advanceDate}
                     decreaseDate={this.decreaseDate}
                     resetDate={this.resetDate}

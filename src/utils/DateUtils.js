@@ -13,6 +13,21 @@ class DateUtils {
     static formatHours(hours) {
         return (new Array(2).fill(0).join('') + hours).slice(-2)
     }
+
+    static monthFromRoman(numeral) {
+        return ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"].indexOf(numeral)
+    }
+
+    static isDayInWeek(day, month, startOfWeek) {
+        const endOfWeek = new Date(startOfWeek.getUTCFullYear(), startOfWeek.getUTCMonth(), startOfWeek.getUTCDate() + 6)
+        const isDateInRange = (startOfWeek.getUTCDate() <= day && startOfWeek.getUTCDate() + 6 >= day)
+        if (startOfWeek.getUTCMonth() === endOfWeek.getUTCMonth()) {
+            return startOfWeek.getUTCMonth() + 1 === month && isDateInRange
+        } else {
+            return (startOfWeek.getUTCMonth() + 1 === month || startOfWeek.getUTCMonth() + 2 === month) && isDateInRange
+        }
+
+    }
 }
 
 export default DateUtils
