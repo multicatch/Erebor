@@ -13,7 +13,7 @@ class WeekdayItem extends Component {
         roomWords.shift()
 
         return (
-            <div className={"erebor-weekday-item-wrapper is-blue " + isClicked}
+            <div className={"erebor-weekday-item-wrapper " + this.typeClassOf(this.props.item.type) + " " + isClicked}
                  style={{
                      "height": Timetable.HOUR_HEIGHT + "px",
                      "top": Timetable.getOffsetFor(this.props.item.startTime) + "px"
@@ -47,6 +47,24 @@ class WeekdayItem extends Component {
                 </div>
             </div>
         )
+    }
+
+    typeClassOf = (type) => {
+        console.log(type)
+
+        if (type === "WY") {
+            return "is-lecture"
+        }
+
+        if (type === "SM" || type === "KW") {
+            return "is-seminar"
+        }
+
+        if (type === "LB") {
+            return "is-laboratory"
+        }
+
+        return "is-default"
     }
 }
 

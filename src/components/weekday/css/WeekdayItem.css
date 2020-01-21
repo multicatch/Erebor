@@ -61,10 +61,28 @@
     transition: all 0.5s ease;
 }
 
-.erebor-weekday-item-wrapper.is-blue .erebor-weekday-item {
-    background: rgba(206, 229, 237, 0.5);
+.erebor-weekday-item-wrapper.is-laboratory .erebor-weekday-item {
+    background: rgba(206, 229, 237, 0.7);
     border-left: 2px solid #3db9df;
     color: #3185bc;
+}
+
+.erebor-weekday-item-wrapper.is-lecture .erebor-weekday-item {
+    background: rgba(244, 233, 199, 0.7);
+    border-left: 2px solid #ffcb46;
+    color: #bc8a2f;
+}
+
+.erebor-weekday-item-wrapper.is-seminar .erebor-weekday-item {
+    background: rgba(218, 241, 213, 0.7);
+    border-left: 2px solid #60da57;
+    color: #009c81;
+}
+
+.erebor-weekday-item-wrapper.is-default .erebor-weekday-item {
+    background: rgba(230, 224, 218, 0.7);
+    border-left: 2px solid #a28363;
+    color: #a28363;
 }
 
 
@@ -87,10 +105,27 @@
     opacity: 1;
 }
 
-.erebor-weekday-item-wrapper.is-blue.is-active .erebor-weekday-item {
+.erebor-weekday-item-wrapper.is-laboratory.is-active .erebor-weekday-item {
     background: #3db9df;
     color: #fff;
 }
+
+.erebor-weekday-item-wrapper.is-lecture.is-active .erebor-weekday-item {
+    background: #ffcb46;
+    color: #fff;
+}
+
+.erebor-weekday-item-wrapper.is-seminar.is-active .erebor-weekday-item {
+    background: #5ecf55;
+    color: #fff;
+}
+
+.erebor-weekday-item-wrapper.is-default.is-active .erebor-weekday-item {
+    background: #a28363;
+    color: #fff;
+}
+
+
 
 @media screen and (max-width: 768px) {
     .erebor-weekday-item-wrapper {
