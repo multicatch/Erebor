@@ -10,12 +10,12 @@ import Timetable from '../utils/Timetable'
 class Week extends Component {
 
     static WEEK_CONTENT_OFFSET = 12
-    static HOUR_HEIGHT = 64
 
     state = {
         weekdays: ['pon.', 'wt.', 'śr.', 'czw.', 'pt.', 'sob.', 'nd.'],
         now: new Date(),
-        updateLineInterval: null
+        updateLineInterval: null,
+        clickedId: null
     }
 
     componentDidMount = () => {
@@ -93,9 +93,18 @@ class Week extends Component {
                 key={"weekday-column-" + index}
                 dayOfWeek={dayOfWeek}
                 timetable={timetable}
+                clickedId={this.state.clickedId}
+                toggleClicked={this.toggleClicked}
             />
         })
 
+    toggleClicked = (id) => {
+          if (this.state.clickedId === id) {
+              this.setState({ clickedId: null })
+          } else {
+              this.setState({ clickedId: id })
+          }
+    }
 }
 
 export default Week

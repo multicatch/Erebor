@@ -1,28 +1,99 @@
-.erebor-weekday-item {
+.erebor-weekday-item-wrapper {
     position: absolute;
     width: calc(100% / 8 - 2px);
 
-    background: #fff;
-
-    margin: 1px 1px 1px 0;
-    padding: 2px 2px 2px 4px;
-
     font-size: 12px;
+
+    margin-left: -200rem;
 }
 
-.erebor-weekday-item.is-blue {
-    background: rgba(206, 229, 237, 0.78);
-    border-left: 2px solid #3db9df;
-    color: #3185bc;
+.erebor-weekday-item-wrapper .erebor-weekday-item {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 1px;
+    padding: 2px 2px 2px 4px;
+    left: 200rem;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.erebor-weekday-item-wrapper.is-active .erebor-weekday-item {
+    margin-left: 0 !important;
+    width: 100% !important;
+    z-index: 100;
 }
 
 .erebor-weekday-item-title {
     font-weight: bold;
 }
 
+.erebor-weekday-item * {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    overflow: hidden;
+}
+
+.erebor-weekday-item .erebor-weekday-item-footer {
+    position: absolute;
+    bottom: 1px;
+    left: 4px;
+    right: 0;
+}
+
+.erebor-weekday-item .erebor-weekday-item-teacher {
+    opacity: 0;
+
+    transition: all 0.5s ease;
+}
+
+.erebor-weekday-item .erebor-weekday-item-room .erebor-weekday-item-room-lead {
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+.erebor-weekday-item .erebor-weekday-item-room .erebor-weekday-item-room-other {
+    opacity: 0;
+
+    transition: all 0.5s ease;
+}
+
+.erebor-weekday-item-wrapper.is-blue .erebor-weekday-item {
+    background: rgba(206, 229, 237, 0.5);
+    border-left: 2px solid #3db9df;
+    color: #3185bc;
+}
+
+
+/**
+    ACTIVE
+ */
+
+.erebor-weekday-item-wrapper.is-active .erebor-weekday-item * {
+    white-space: normal;
+}
+
+.erebor-weekday-item-wrapper.is-active .erebor-weekday-item .erebor-weekday-item-teacher {
+    opacity: 1;
+}
+
+.erebor-weekday-item-wrapper.is-active
+.erebor-weekday-item
+.erebor-weekday-item-room
+.erebor-weekday-item-room-other {
+    opacity: 1;
+}
+
+.erebor-weekday-item-wrapper.is-blue.is-active .erebor-weekday-item {
+    background: #3db9df;
+    color: #fff;
+}
 
 @media screen and (max-width: 768px) {
-    .erebor-weekday-item {
+    .erebor-weekday-item-wrapper {
         width: calc(700% / 8);
     }
 }

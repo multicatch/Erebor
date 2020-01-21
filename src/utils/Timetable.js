@@ -21,6 +21,31 @@ class Timetable {
         const duration = this.parseDuration(time)
         return this.HOUR_HEIGHT * duration
     }
+
+    static concurrentDataOf(item, timetable) {
+        let concurrentItems = this.directlyConcurrentDataFor(item, timetable)
+        let filteredTimetable = timetable.filter(timetableItem => timetableItem !== item && !concurrentItems.includes(timetableItem))
+        const additionalConcurrent = concurrentItems.flatMap(concurrentItem => this.concurrentDataOf(concurrentItem, filteredTimetable).items)
+        concurrentItems = concurrentItems.concat(additionalConcurrent)
+
+        return {
+            count: concurrentItems.length,
+            index: concurrentItems.indexOf(item),
+            items: concurrentItems
+        }
+    }
+
+    static directlyConcurrentDataFor(item, timetable) {
+        const startTime = this.parseDuration(item.event_array[0].start_time)
+        const endTime = startTime + this.parseDuration(item.event_array[0].length)
+
+        return timetable.filter(otherItem => {
+            const otherStartTime = Timetable.parseDuration(otherItem.event_array[0].start_time)
+            const otherEndTime = otherStartTime + Timetable.parseDuration(otherItem.event_array[0].length)
+            return ((otherStartTime >= startTime && otherStartTime < endTime) ||
+                (otherEndTime > startTime && otherEndTime <= endTime))
+        })
+    }
 }
 
 export default Timetable
