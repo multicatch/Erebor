@@ -55,13 +55,8 @@ class Timetable {
         }).then(data => data.result.array)
     }
 
-    static parseDuration(time) {
-        const timeParts = time.split(":")
-        return parseInt(timeParts[0]) + (parseInt(timeParts[1]) / 60.0)
-    }
-
     static getOffsetFor(time) {
-        const duration = this.parseDuration(time)
+        const duration = DateUtils.parseDuration(time)
         return this.HOUR_HEIGHT * duration
     }
 
@@ -79,12 +74,12 @@ class Timetable {
     }
 
     static directlyConcurrentDataFor(item, timetable) {
-        const startTime = this.parseDuration(item.event_array[0].start_time)
-        const endTime = startTime + this.parseDuration(item.event_array[0].length)
+        const startTime = DateUtils.parseDuration(item.event_array[0].start_time)
+        const endTime = startTime + DateUtils.parseDuration(item.event_array[0].length)
 
         return timetable.filter(otherItem => {
-            const otherStartTime = Timetable.parseDuration(otherItem.event_array[0].start_time)
-            const otherEndTime = otherStartTime + Timetable.parseDuration(otherItem.event_array[0].length)
+            const otherStartTime = DateUtils.parseDuration(otherItem.event_array[0].start_time)
+            const otherEndTime = otherStartTime + DateUtils.parseDuration(otherItem.event_array[0].length)
             return ((otherStartTime >= startTime && otherStartTime < endTime) ||
                 (otherEndTime > startTime && otherEndTime <= endTime))
         })

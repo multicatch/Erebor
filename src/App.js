@@ -80,7 +80,6 @@ class App extends Component {
 
     updateTimetable = (group) => {
         Timetable.fetchTimetable(group).then(timetable => {
-            console.log(timetable)
             this.setState({timetable})
         })
     }

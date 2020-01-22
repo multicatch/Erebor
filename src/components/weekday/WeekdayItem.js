@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './css/WeekdayItem.css'
 import Timetable from '../../utils/Timetable'
+import DateUtils from '../../utils/DateUtils'
 
 class WeekdayItem extends Component {
 
@@ -20,7 +21,7 @@ class WeekdayItem extends Component {
                  }}>
                 <div className={"erebor-weekday-item"}
                      style={{
-                         "height": "calc(" + Timetable.parseDuration(this.props.item.duration) * 100 + "% - 1px)",
+                         "height": "calc(" + DateUtils.parseDuration(this.props.item.duration) * 100 + "% - 1px)",
                          "width": width + "%",
                          "marginLeft": left + "%"
                      }}
@@ -50,8 +51,6 @@ class WeekdayItem extends Component {
     }
 
     typeClassOf = (type) => {
-        console.log(type)
-
         if (type === "WY") {
             return "is-lecture"
         }

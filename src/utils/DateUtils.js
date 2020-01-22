@@ -28,6 +28,11 @@ class DateUtils {
         }
 
     }
+
+    static parseDuration(time) {
+        const timeParts = time.split(":")
+        return parseInt(timeParts[0]) + (parseInt(timeParts[1]) / 60.0)
+    }
 }
 
 export default DateUtils

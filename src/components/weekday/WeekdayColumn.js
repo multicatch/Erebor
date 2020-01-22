@@ -22,6 +22,7 @@ class WeekdayColumn extends Component {
     render() {
         const timetable = this.parseTimetable().map(item =>
             <WeekdayItem
+                key={"weekday-item-" + item.id}
                 item={item}
                 clickedId={this.props.clickedId}
                 toggleClicked={this.props.toggleClicked}
