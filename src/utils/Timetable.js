@@ -61,15 +61,22 @@ class Timetable {
     }
 
     static concurrentDataOf(item, timetable) {
-        let concurrentItems = this.directlyConcurrentDataFor(item, timetable)
-        let filteredTimetable = timetable.filter(timetableItem => timetableItem !== item && !concurrentItems.includes(timetableItem))
-        const additionalConcurrent = concurrentItems.flatMap(concurrentItem => this.concurrentDataOf(concurrentItem, filteredTimetable).items)
-        concurrentItems = concurrentItems.concat(additionalConcurrent)
+        const directlyConcurrentItems = this.directlyConcurrentDataFor(item, timetable)
+        const filteredTimetable = timetable.filter(timetableItem => timetableItem !== item && !directlyConcurrentItems.includes(timetableItem))
+        const additionalConcurrent = directlyConcurrentItems.flatMap(concurrentItem => this.concurrentDataOf(concurrentItem, filteredTimetable).items)
+        const concurrentItems = directlyConcurrentItems.concat(additionalConcurrent)
 
         return {
             count: concurrentItems.length,
             index: concurrentItems.indexOf(item),
             items: concurrentItems
+                .filter(concurrentItem => {
+                    const concurrentOfConcurrent = Timetable.directlyConcurrentDataFor(concurrentItem, timetable)
+                    const distinct = concurrentOfConcurrent
+                        .filter(other => !concurrentItems.includes(other))
+                        .length
+                    return distinct > 4
+                })
         }
     }
 
