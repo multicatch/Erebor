@@ -13,6 +13,7 @@ body {
     left: 0;
     right: 0;
     height: 2.5em;
+    width: 100%;
 
     padding: 0 0.7em;
 
@@ -30,9 +31,20 @@ body {
 }
 
 .erebor-toolbar-title {
+    min-width: 0;
     padding-top: 0.25em;
     text-decoration: underline rgb(214, 214, 214);
     cursor: pointer;
+    flex-shrink: 1;
+}
+
+.erebor-toolbar-title-content {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    max-width: 100%;
 }
 
 .erebor-toolbar-title-year {
@@ -54,6 +66,10 @@ body {
     .erebor-toolbar-title {
         text-align: right;
         justify-content: flex-end;
+    }
+
+    .erebor-toolbar-content {
+        max-width: 100%;
     }
 
     .erebor-toolbar-title-year {

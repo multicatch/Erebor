@@ -1,45 +1,38 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import './css/Toolbar.css'
+import Groups from '../utils/Groups'
+import Years from './group/Years'
 
 class Toolbar extends Component {
 
-    state = {
-        title: 'Informatyka',
-        years: [1, 2, 3, 4],
-        selectedYear: 2
-    }
-
-    selectYear = (selectedYear) => {
-        this.props.updateTimetable(842)
-        this.setState({selectedYear})
-    }
-
-    years = () => this.state.years.map(year =>
-        <div
-            className={"erebor-toolbar-years-button erebor-button " + (year === this.state.selectedYear ? "is-selected" : "")}
-            onClick={() => this.selectYear(year)}
-            key={`${this.title}-${year}-toggle`}
-        >
-            {year}
-        </div>
-    )
-
     render() {
+        const selectedYear = this.selectedGroupYears().filter(group => group.id === this.props.selectedGroup)[0]
+
         return (
             <div className="erebor-toolbar">
                 <div className="erebor-toolbar-content">
                     <div className="erebor-toolbar-button erebor-button erebor-button--gray">
                         Filtrowanie
                     </div>
-                    <div className="erebor-toolbar-title is-stretched">
-                        {this.state.title} <span className="erebor-toolbar-title-year">{this.state.selectedYear}</span>
+                    <div className="erebor-toolbar-title is-stretched" onClick={this.props.toggleGroupSelector}>
+                        <span className="erebor-toolbar-title-content">{selectedYear ? selectedYear.name : "Wybierz kierunek"}</span>
+                        <span className="erebor-toolbar-title-year">{selectedYear ? selectedYear.year : ""}</span>
                     </div>
-                    <div className="erebor-toolbar-years erebor-button-group erebor-button-group--gray">
-                        {this.years()}
+                    <div className="erebor-toolbar-years">
+                        <Years
+                            groups={this.props.groups}
+                            selectedGroup={this.props.selectedGroup}
+                            selectGroup={this.props.selectGroup}
+                        />
                     </div>
                 </div>
             </div>
         )
+    }
+
+    selectedGroupYears = () => {
+        const groupByType = Groups.groupByType(this.props.groups)
+        return Groups.selectById(this.props.selectedGroup, groupByType)
     }
 }
 

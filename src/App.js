@@ -6,12 +6,17 @@ import CalendarHeader from './components/CalendarHeader';
 import Week from "./components/Week";
 import DateUtils from './utils/DateUtils'
 import Timetable from './utils/Timetable'
+import GroupSelector from './components/group/GroupSelector'
+import Groups from './utils/Groups'
 
 class App extends Component {
     state = {
         startOfWeek: new Date(),
+        groups: [],
         timeProgression: 0,
-        timetable: []
+        selectedGroup: 842,
+        timetable: [],
+        groupSelectorShown: false
     }
 
     componentWillMount = () => {
@@ -20,6 +25,11 @@ class App extends Component {
 
     componentDidMount = () => {
         window.addEventListener("resize", this.updateWeek);
+        Groups.fetchGroups().then(groups => {
+            this.setState({
+                groups: groups
+            })
+        })
     }
 
     componentWillUnmount() {
@@ -37,6 +47,16 @@ class App extends Component {
             <div className="erebor-app">
                 <Toolbar
                     updateTimetable={this.updateTimetable}
+                    selectedGroup={this.state.selectedGroup}
+                    selectGroup={this.selectGroup}
+                    groups={this.state.groups}
+                    toggleGroupSelector={this.toggleGroupSelector}
+                />
+                <GroupSelector
+                    selectedGroup={this.state.selectedGroup}
+                    selectGroup={this.selectGroup}
+                    groups={this.state.groups}
+                    show={this.state.groupSelectorShown}
                 />
                 <CalendarHeader
                     startOfWeek={this.state.startOfWeek}
@@ -82,6 +102,16 @@ class App extends Component {
         Timetable.fetchTimetable(group).then(timetable => {
             this.setState({timetable})
         })
+    }
+
+    selectGroup = (group) => {
+        this.setState({ selectedGroup: group }, () => {
+            this.updateTimetable(group)
+        })
+    }
+
+    toggleGroupSelector = () => {
+        this.setState({ groupSelectorShown: !this.state.groupSelectorShown })
     }
 }
 
