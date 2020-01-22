@@ -63,19 +63,19 @@
 
 .erebor-weekday-item-wrapper.is-laboratory .erebor-weekday-item {
     background: rgba(206, 229, 237, 0.7);
-    border-left: 2px solid #3db9df;
+    border-left: 2px solid #3cb0d6;
     color: #3185bc;
 }
 
 .erebor-weekday-item-wrapper.is-lecture .erebor-weekday-item {
     background: rgba(244, 233, 199, 0.7);
-    border-left: 2px solid #ffcb46;
+    border-left: 2px solid #f3c241;
     color: #bc8a2f;
 }
 
 .erebor-weekday-item-wrapper.is-seminar .erebor-weekday-item {
     background: rgba(218, 241, 213, 0.7);
-    border-left: 2px solid #60da57;
+    border-left: 2px solid #5ac051;
     color: #009c81;
 }
 
@@ -106,17 +106,17 @@
 }
 
 .erebor-weekday-item-wrapper.is-laboratory.is-active .erebor-weekday-item {
-    background: #3db9df;
+    background: #3cb0d6;
     color: #fff;
 }
 
 .erebor-weekday-item-wrapper.is-lecture.is-active .erebor-weekday-item {
-    background: #ffcb46;
+    background: #f3c241;
     color: #fff;
 }
 
 .erebor-weekday-item-wrapper.is-seminar.is-active .erebor-weekday-item {
-    background: #5ecf55;
+    background: #5ac051;
     color: #fff;
 }
 
