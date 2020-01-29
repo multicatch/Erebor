@@ -15,6 +15,7 @@ class WeekdayColumn extends Component {
             name: item.subject,
             teacher: item.teacher_array[0].name,
             type: item.type.shortcut,
+            groupId: item.students_array[0].groups && item.students_array[0].groups !== "1" ? item.students_array[0].group : undefined,
             concurrent: Timetable.concurrentDataOf(item, this.props.timetable),
         }
     })

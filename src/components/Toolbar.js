@@ -11,7 +11,8 @@ class Toolbar extends Component {
         return (
             <div className="erebor-toolbar">
                 <div className="erebor-toolbar-content">
-                    <div className="erebor-toolbar-button erebor-button erebor-button--gray">
+                    <div className="erebor-toolbar-button erebor-button erebor-button--gray"
+                        onClick={this.props.toggleFilter}>
                         Filtrowanie
                     </div>
                     <div className="erebor-toolbar-title is-stretched" onClick={this.props.toggleGroupSelector}>

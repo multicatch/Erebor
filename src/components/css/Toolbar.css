@@ -19,6 +19,8 @@ body {
 
     background: rgb(246, 246, 246);
     border-bottom: 1px solid rgb(227,227,227);
+
+    z-index: 20;
 }
 
 .erebor-toolbar-content {

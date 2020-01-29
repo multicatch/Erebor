@@ -10,6 +10,8 @@
     transform-origin: top;
     transform: scale(0);
     opacity: 0;
+
+    z-index: 30;
 }
 
 .erebor-group-selector-wrapper.is-shown {

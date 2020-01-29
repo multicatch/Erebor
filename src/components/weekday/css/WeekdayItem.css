@@ -50,6 +50,24 @@
     transition: all 0.5s ease;
 }
 
+.erebor-weekday-item .erebor-weekday-item-subgroup-id {
+    display: inline;
+
+    font-weight: lighter;
+    padding: 2px;
+    font-size: 8px;
+
+    color: rgba(66, 66, 66, 0.5);
+    border: 1px solid rgba(66, 66, 66, 0.16);
+    background: rgba(255, 255, 255, 0.5);
+
+    border-radius: 4px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
+
 .erebor-weekday-item .erebor-weekday-item-room .erebor-weekday-item-room-lead {
     font-weight: bold;
     padding-right: 5px;

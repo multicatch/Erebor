@@ -8,6 +8,8 @@ import DateUtils from './utils/DateUtils'
 import Timetable from './utils/Timetable'
 import GroupSelector from './components/group/GroupSelector'
 import Groups from './utils/Groups'
+import FilterBar from './components/FilterBar'
+import TimetableFilter from './utils/TimetableFilter'
 
 class App extends Component {
     state = {
@@ -16,7 +18,9 @@ class App extends Component {
         timeProgression: 0,
         selectedGroup: 842,
         timetable: [],
-        groupSelectorShown: false
+        groupSelectorShown: false,
+        filterShown: false,
+        query: {}
     }
 
     componentWillMount = () => {
@@ -44,19 +48,24 @@ class App extends Component {
 
     render() {
         return (
-            <div className="erebor-app">
+            <div className={"erebor-app " + (this.state.filterShown ? "filter-shown" : "")}>
                 <Toolbar
                     updateTimetable={this.updateTimetable}
                     selectedGroup={this.state.selectedGroup}
                     selectGroup={this.selectGroup}
                     groups={this.state.groups}
                     toggleGroupSelector={this.toggleGroupSelector}
+                    toggleFilter={this.toggleFilter}
                 />
                 <GroupSelector
                     selectedGroup={this.state.selectedGroup}
                     selectGroup={this.selectGroup}
                     groups={this.state.groups}
                     show={this.state.groupSelectorShown}
+                />
+                <FilterBar
+                    shown={this.state.filterShown}
+                    setQuery={this.setQuery}
                 />
                 <CalendarHeader
                     startOfWeek={this.state.startOfWeek}
@@ -67,7 +76,7 @@ class App extends Component {
                 <Week
                     startOfWeek={this.state.startOfWeek}
                     display={this.state.timeProgression}
-                    timetable={this.state.timetable}
+                    timetable={TimetableFilter.filter(this.state.timetable, this.state.query)}
                 />
             </div>
         )
@@ -105,13 +114,21 @@ class App extends Component {
     }
 
     selectGroup = (group) => {
-        this.setState({ selectedGroup: group }, () => {
+        this.setState({selectedGroup: group}, () => {
             this.updateTimetable(group)
         })
     }
 
     toggleGroupSelector = () => {
-        this.setState({ groupSelectorShown: !this.state.groupSelectorShown })
+        this.setState({groupSelectorShown: !this.state.groupSelectorShown})
+    }
+
+    toggleFilter = () => {
+        this.setState({filterShown: !this.state.filterShown})
+    }
+
+    setQuery = (query) => {
+        this.setState({query})
     }
 }
 

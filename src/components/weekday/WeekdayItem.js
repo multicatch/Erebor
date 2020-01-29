@@ -35,6 +35,8 @@ class WeekdayItem extends Component {
                         {this.props.item.startTime}-{this.props.item.endTime}
                     </div>
 
+                    {this.subgroupIdOf(this.props.item)}
+
                     <div className="erebor-weekday-item-footer">
                         <div className="erebor-weekday-item-teacher">
                             {this.props.item.teacher}
@@ -48,6 +50,14 @@ class WeekdayItem extends Component {
                 </div>
             </div>
         )
+    }
+
+    subgroupIdOf = (item) => {
+        if (item.groupId) {
+            return (<div className={"erebor-weekday-item-subgroup-id"}>{item.type}{item.groupId}</div>)
+        } else {
+            return ""
+        }
     }
 
     typeClassOf = (type) => {
