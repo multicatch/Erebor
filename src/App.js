@@ -66,6 +66,7 @@ class App extends Component {
                 <FilterBar
                     shown={this.state.filterShown}
                     setQuery={this.setQuery}
+                    groups={TimetableFilter.groupsOf(this.state.timetable)}
                 />
                 <CalendarHeader
                     startOfWeek={this.state.startOfWeek}

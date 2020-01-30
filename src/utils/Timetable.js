@@ -69,14 +69,8 @@ class Timetable {
         return {
             count: concurrentItems.length,
             index: concurrentItems.indexOf(item),
+            width: concurrentItems.length / directlyConcurrentItems.length,
             items: concurrentItems
-                .filter(concurrentItem => {
-                    const concurrentOfConcurrent = Timetable.directlyConcurrentDataFor(concurrentItem, timetable)
-                    const distinct = concurrentOfConcurrent
-                        .filter(other => !concurrentItems.includes(other))
-                        .length
-                    return distinct > 4
-                })
         }
     }
 
