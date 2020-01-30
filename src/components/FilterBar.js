@@ -8,7 +8,8 @@ class FilterBar extends Component {
 
     state = {
         search: '',
-        groups: {}
+        groups: {},
+        manualMode: 0
     }
 
     setState = (state, callback) => {
@@ -46,6 +47,9 @@ class FilterBar extends Component {
 
     render() {
         const groupSelectors = this.groupSelectors()
+        const isManualOff = this.state.manualMode === 0
+        const isManualOn = this.state.manualMode === 1
+        const isManualEdit = this.state.manualMode === 2
 
         return (
             <div className={"erebor-filter-bar-wrapper " + (this.props.shown ? "is-shown" : "")}>
@@ -56,6 +60,24 @@ class FilterBar extends Component {
                            className="erebor-search"/>
                     {(this.state.search ? <FontAwesomeIcon className="erebor-delete-search" icon={faTimesCircle}
                                                            onClick={() => this.setState({search: ''})}/> : "")}
+                </div>
+
+                <div className={"erebor-filter-section erebor-filter-switch"}>
+                    <div className={"erebor-section-label"}>Ręcznie</div>
+                    <div className={"erebor-button-group erebor-button-group--gray"}>
+                        <div
+                            className={"erebor-button " + (isManualOn ? "is-selected" : "")}
+                            onClick={() => this.setState({ manualMode: 1 })}
+                        >ON</div>
+                        <div
+                            className={"erebor-button " + (isManualEdit ? "is-selected" : "")}
+                            onClick={() => this.setState({ manualMode: 2 })}
+                        >EDIT</div>
+                        <div
+                            className={"erebor-button " + (isManualOff ? "is-selected" : "")}
+                            onClick={() => this.setState({ manualMode: 0 })}
+                        >OFF</div>
+                    </div>
                 </div>
 
                 <div className={"erebor-filter-section " + (groupSelectors.length < 1 ? "is-hidden" : "")}>

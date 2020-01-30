@@ -78,6 +78,7 @@ class App extends Component {
                     startOfWeek={this.state.startOfWeek}
                     display={this.state.timeProgression}
                     timetable={TimetableFilter.filter(this.state.timetable, this.state.query)}
+                    isEditable={this.state.query.manualMode === 2}
                 />
             </div>
         )

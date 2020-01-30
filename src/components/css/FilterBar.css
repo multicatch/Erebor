@@ -81,10 +81,30 @@
     font-weight: bold;
     color: #9d9c9b;
     font-size: 10px;
-    margin-top: 2em;
+    margin-top: 1em;
     margin-bottom: 1em;
 }
 
 .erebor-filter-bar-wrapper .erebor-filter-section.is-hidden {
     display: none;
+}
+
+.erebor-filter-bar-wrapper .erebor-filter-section {
+    padding-top: 0.5em;
+}
+
+.erebor-filter-bar-wrapper .erebor-filter-section .erebor-section-label {
+    font-size: 14px;
+    padding-left: 0.5em;
+}
+
+.erebor-filter-bar-wrapper .erebor-filter-section.erebor-filter-switch {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.erebor-filter-bar-wrapper .erebor-filter-section.erebor-filter-switch .erebor-button-group {
+    margin-left: auto;
+    font-size: 10px;
 }
