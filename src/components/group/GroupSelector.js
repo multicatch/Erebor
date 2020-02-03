@@ -17,7 +17,7 @@ class GroupSelector extends Component {
             <div className={"erebor-group-selector-wrapper " + showState}>
                 <div className={"erebor-group-selector-content"}>
                     <select
-                        className={"erebor-group-selector-select"}
+                        className={"erebor-group-selector-select erebor-dropdown-select"}
                         onChange={this.selectGroup}
                         value={this.selectedKey(groupByType)}
                     >

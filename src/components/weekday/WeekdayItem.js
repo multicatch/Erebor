@@ -9,12 +9,14 @@ class WeekdayItem extends Component {
         const width = (1.0 / this.props.item.concurrent.count * 100) * this.props.item.concurrent.width
         const left = width * this.props.item.concurrent.index
         const isClicked = (this.props.clickedId === this.props.item.id ? "is-active" : "")
+        const isEditable = (this.props.isEditable ? "is-editable" : "")
+        const isEnabledInCustom = (this.props.isEnabledInCustom ? "is-custom" : "")
         const roomWords = this.props.item.room.split(" ")
         const roomWordsLead = roomWords[0]
         roomWords.shift()
 
         return (
-            <div className={"erebor-weekday-item-wrapper " + this.typeClassOf(this.props.item.type) + " " + isClicked}
+            <div className={"erebor-weekday-item-wrapper " + this.typeClassOf(this.props.item.type) + " " + isClicked + " " + isEditable + " " + isEnabledInCustom}
                  style={{
                      "height": Timetable.HOUR_HEIGHT + "px",
                      "top": Timetable.getOffsetFor(this.props.item.startTime) + "px"

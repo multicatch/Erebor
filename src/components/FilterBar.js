@@ -19,6 +19,10 @@ class FilterBar extends Component {
         })
     }
 
+    componentWillMount = () => {
+        this.setState(this.props.query)
+    }
+
     groupSelectors = () => {
         return Object.keys(this.props.groups)
             .filter(key => this.props.groups[key].length > 1)
@@ -27,7 +31,7 @@ class FilterBar extends Component {
                                                                            value={item}>{key}{item}</option>)
                 return (
                     <select
-                        className="erebor-filter-dropdown"
+                        className="erebor-filter-dropdown erebor-dropdown-select"
                         value={this.state.groups[key]}
                         key={key}
                         onChange={(event) => this.setGroupFilter(key, event.target.value)}
@@ -63,7 +67,7 @@ class FilterBar extends Component {
                 </div>
 
                 <div className={"erebor-filter-section erebor-filter-switch"}>
-                    <div className={"erebor-section-label"}>Ręcznie</div>
+                    <div className={"erebor-section-label"}>Własny plan</div>
                     <div className={"erebor-button-group erebor-button-group--gray"}>
                         <div
                             className={"erebor-button " + (isManualOn ? "is-selected" : "")}

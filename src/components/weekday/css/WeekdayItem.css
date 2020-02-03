@@ -17,7 +17,7 @@
 
     cursor: pointer;
 
-    transition: all 0.2s ease;
+    transition: all 0.2s ease, border-left-width 0.1s ease;
 }
 
 .erebor-weekday-item-wrapper.is-active .erebor-weekday-item {
@@ -101,6 +101,16 @@
     background: rgba(230, 224, 218, 0.7);
     border-left: 2px solid #a28363;
     color: #a28363;
+}
+
+.erebor-weekday-item-wrapper.is-editable .erebor-weekday-item {
+    opacity: 0.5;
+    border-left-width: 0;
+}
+
+.erebor-weekday-item-wrapper.is-custom .erebor-weekday-item {
+    opacity: 1;
+    border-left-width: 2px;
 }
 
 

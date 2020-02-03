@@ -22,7 +22,7 @@ class Week extends Component {
         const height = this.viewContent.scrollHeight
         this.viewContent.scrollTop = 8 * height / 24
 
-        this.setState({ updateLineInterval: setInterval(this.updateTime, 60000) })
+        this.setState({updateLineInterval: setInterval(this.updateTime, 60000)})
     }
 
     componentWillUnmount = () => {
@@ -30,7 +30,7 @@ class Week extends Component {
     }
 
     updateTime = () => {
-        this.setState({ now: new Date() })
+        this.setState({now: new Date()})
     }
 
     render() {
@@ -93,17 +93,24 @@ class Week extends Component {
                 key={"weekday-column-" + index}
                 dayOfWeek={dayOfWeek}
                 timetable={timetable}
-                clickedId={this.state.clickedId}
+                clickedId={this.props.isEditable ? null : this.state.clickedId}
                 toggleClicked={this.toggleClicked}
+                isEditable={this.props.isEditable}
+                customTimetable={this.props.customTimetable}
             />
         })
 
     toggleClicked = (id) => {
-          if (this.state.clickedId === id) {
-              this.setState({ clickedId: null })
-          } else {
-              this.setState({ clickedId: id })
-          }
+        if (this.props.isEditable) {
+            this.props.toggleCustom(id)
+            this.setState({clickedId: null})
+        } else {
+            if (this.state.clickedId === id) {
+                this.setState({clickedId: null})
+            } else {
+                this.setState({clickedId: id})
+            }
+        }
     }
 }
 

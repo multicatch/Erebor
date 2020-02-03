@@ -10,21 +10,29 @@ import GroupSelector from './components/group/GroupSelector'
 import Groups from './utils/Groups'
 import FilterBar from './components/FilterBar'
 import TimetableFilter from './utils/TimetableFilter'
+import SettingsRepository from './utils/SettingsRepository'
 
 class App extends Component {
-    state = {
+    defaultSettings = {
         startOfWeek: new Date(),
         groups: [],
         timeProgression: 0,
-        selectedGroup: 842,
+        selectedGroup: 0,
         timetable: [],
         groupSelectorShown: false,
         filterShown: false,
-        query: {}
+        query: {},
+        customTimetable: []
     }
 
     componentWillMount = () => {
-        this.updateWeek()
+        const defaultSettings = this.defaultSettings
+        const state = SettingsRepository.retrieve(defaultSettings)
+        state.startOfWeek = defaultSettings.startOfWeek
+        this.setState(state, () => {
+            this.updateWeek()
+            this.updateTimetable(this.state.group)
+        })
     }
 
     componentDidMount = () => {
@@ -38,6 +46,13 @@ class App extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateWeek);
+    }
+
+    setState = (state, callback) => {
+        super.setState(state, () => {
+            SettingsRepository.save(this.state)
+            if (callback) callback()
+        })
     }
 
     updateWeek = () => {
@@ -66,6 +81,7 @@ class App extends Component {
                 <FilterBar
                     shown={this.state.filterShown}
                     setQuery={this.setQuery}
+                    query={this.state.query}
                     groups={TimetableFilter.groupsOf(this.state.timetable)}
                 />
                 <CalendarHeader
@@ -77,8 +93,10 @@ class App extends Component {
                 <Week
                     startOfWeek={this.state.startOfWeek}
                     display={this.state.timeProgression}
-                    timetable={TimetableFilter.filter(this.state.timetable, this.state.query)}
+                    timetable={TimetableFilter.filter(this.state.timetable, this.state.query, this.state.customTimetable)}
                     isEditable={this.state.query.manualMode === 2}
+                    toggleCustom={this.toggleCustom}
+                    customTimetable={this.state.customTimetable}
                 />
             </div>
         )
@@ -131,6 +149,17 @@ class App extends Component {
 
     setQuery = (query) => {
         this.setState({query})
+    }
+
+    toggleCustom = (id) => {
+        let customTimetable = this.state.customTimetable
+        if (customTimetable.indexOf(id) < 0) {
+            customTimetable.push(id)
+        } else {
+            customTimetable = customTimetable.filter(timetableId => timetableId !== id)
+        }
+
+        this.setState({ customTimetable })
     }
 }
 

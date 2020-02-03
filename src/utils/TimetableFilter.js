@@ -1,5 +1,5 @@
 class TimetableFilter {
-    static filter(timetable, query) {
+    static filter(timetable, query, customTimetable) {
         let result = timetable
 
         if (query.search) {
@@ -8,6 +8,10 @@ class TimetableFilter {
 
         if (query.groups) {
             result = TimetableFilter.filterByGroups(result, query.groups)
+        }
+
+        if (query.manualMode && query.manualMode === 1) {
+            result = TimetableFilter.filterById(result, customTimetable)
         }
 
         return result
@@ -50,6 +54,11 @@ class TimetableFilter {
                 return matchingGroups.length === 0 || matchingGroups[0].group === item.students_array[0].group
             }
         )
+    }
+
+    static filterById(timetable, customTimetable) {
+        return timetable
+            .filter(event => customTimetable.indexOf(event.id) >= 0)
     }
 }
 

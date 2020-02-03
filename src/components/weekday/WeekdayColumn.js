@@ -27,6 +27,8 @@ class WeekdayColumn extends Component {
                 item={item}
                 clickedId={this.props.clickedId}
                 toggleClicked={this.props.toggleClicked}
+                isEditable={this.props.isEditable}
+                isEnabledInCustom={this.props.customTimetable.indexOf(item.id) >= 0}
             />)
         const isWeekend = (this.props.dayOfWeek >= 5 ? "is-weekend" : "")
         const isFirst = (this.props.dayOfWeek <= 0 ? "is-first" : "")
