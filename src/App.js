@@ -22,7 +22,7 @@ class App extends Component {
         groupSelectorShown: false,
         filterShown: false,
         query: {},
-        customTimetable: {}
+        customTimetable: []
     }
 
     componentWillMount = () => {
@@ -99,7 +99,7 @@ class App extends Component {
                     timetable={TimetableFilter.filter(this.state.timetable, this.state.query, this.state.customTimetable)}
                     isEditable={this.state.query.manualMode === 2}
                     toggleCustom={this.toggleCustom}
-                    customTimetable={this.state.customTimetable}
+                    customTimetable={this.state.customTimetable || []}
                     isExtendable={this.state.query.extend}
                 />
             </div>
