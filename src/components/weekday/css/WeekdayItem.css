@@ -124,6 +124,7 @@
     ACTIVE
  */
 
+.erebor-extendable-view .erebor-weekday-item:hover,
 .erebor-weekday-item-wrapper.is-editable .erebor-weekday-item:hover {
     width: 100% !important;
     z-index: 100;
@@ -151,7 +152,14 @@
 .erebor-weekday-item:hover
 .erebor-weekday-item-room
 .erebor-weekday-item-room-other,
-.erebor-weekday-item-wrapper.is-editable .erebor-weekday-item:hover .erebor-weekday-item-teacher{
+.erebor-weekday-item-wrapper.is-editable .erebor-weekday-item:hover .erebor-weekday-item-teacher,
+
+.erebor-extendable-view .erebor-weekday-item:hover
+.erebor-weekday-item-room
+.erebor-weekday-item-room-other,
+
+.erebor-extendable-view .erebor-weekday-item:hover
+.erebor-weekday-item-teacher {
     opacity: 1;
 }
 

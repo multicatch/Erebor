@@ -36,7 +36,7 @@ class Week extends Component {
     render() {
 
         return (
-            <div className="erebor-week-view">
+            <div className={"erebor-week-view " + (this.props.isExtendable ? "erebor-extendable-view" : "")}>
                 <div className="erebor-week-view-title">
                     <HoursTitle/>
                     {this.weekdays()}

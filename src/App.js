@@ -100,6 +100,7 @@ class App extends Component {
                     isEditable={this.state.query.manualMode === 2}
                     toggleCustom={this.toggleCustom}
                     customTimetable={this.state.customTimetable}
+                    isExtendable={this.state.query.extend}
                 />
             </div>
         )

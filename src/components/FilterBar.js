@@ -10,7 +10,8 @@ class FilterBar extends Component {
         search: '',
         groups: {},
         manualMode: 0,
-        importantVisible: true
+        importantVisible: true,
+        extend: false
     }
 
     setState = (state, callback) => {
@@ -56,6 +57,7 @@ class FilterBar extends Component {
         const isManualOn = this.state.manualMode === 1
         const isManualEdit = this.state.manualMode === 2
         const isImportantVisible = this.state.importantVisible
+        const isExtendingHoverEnabled = this.state.extend
 
         return (
             <div className={"erebor-filter-bar-wrapper " + (this.props.shown ? "is-shown" : "")}>
@@ -74,8 +76,7 @@ class FilterBar extends Component {
                 </div>
 
                 <div className={"erebor-filter-section"}>
-                    <div className="erebor-filter-section-title">Widoczność zajęć</div>
-
+                    <div className="erebor-filter-section-title">Konfiguracja zajęć</div>
                     <div className={"erebor-filter-switch"}>
                         <div className={"erebor-section-label"}>Własny plan</div>
                         <div className={"erebor-button-group erebor-button-group--gray"}>
@@ -107,6 +108,26 @@ class FilterBar extends Component {
                             <div
                                 className={"erebor-button " + (!isImportantVisible ? "is-selected" : "")}
                                 onClick={() => isManualOn && this.setState({importantVisible: false})}
+                            >OFF
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={"erebor-filter-section"}>
+                    <div className="erebor-filter-section-title">Widok</div>
+
+                    <div className={"erebor-filter-switch"}>
+                        <div className={"erebor-section-label"}>Rozwijanie</div>
+                        <div className={"erebor-button-group erebor-button-group--gray"}>
+                            <div
+                                className={"erebor-button " + (isExtendingHoverEnabled ? "is-selected" : "")}
+                                onClick={() => this.setState({extend: true})}
+                            >ON
+                            </div>
+                            <div
+                                className={"erebor-button " + (!isExtendingHoverEnabled ? "is-selected" : "")}
+                                onClick={() => this.setState({extend: false})}
                             >OFF
                             </div>
                         </div>
