@@ -4,10 +4,10 @@
     align-items: flex-end;
 
     width: 80rem;
-    max-width: 960px;
+    max-width: 100%;
 
     margin: 0 auto;
-    padding: 0.5em;
+    padding: 0.5em 5em;
 }
 
 .erebor-calendar-header .erebor-month-wrapper {
@@ -29,13 +29,11 @@
     display: none;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
     .erebor-calendar-header {
-        max-width: 100%;
+        padding: 0.5em;
     }
-}
 
-@media screen and (max-width: 320px) {
     .erebor-week-toggle .erebor-week-today-text {
         display: none;
     }

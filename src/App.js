@@ -57,8 +57,11 @@ class App extends Component {
 
     updateWeek = () => {
         const startOfWeek = this.state.startOfWeek
-        startOfWeek.setUTCDate(startOfWeek.getUTCDate() - DateUtils.getDayOfWeek(startOfWeek))
-        this.setState({timeProgression: this.timeProgression(), startOfWeek})
+        const timeProgression = this.timeProgression()
+        if (timeProgression === 7) {
+            startOfWeek.setUTCDate(startOfWeek.getUTCDate() - DateUtils.getDayOfWeek(startOfWeek))
+        }
+        this.setState({timeProgression, startOfWeek})
     }
 
     render() {
