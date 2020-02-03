@@ -144,7 +144,7 @@ class App extends Component {
     }
 
     timeProgression = () => {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 1024) {
             return 1;
         }
         return 7;

@@ -17,7 +17,7 @@
     background: rgb(241, 241, 241);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .erebor-weekday-column {
         width: calc(700% / 8);
         margin-left: 4px;

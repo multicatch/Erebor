@@ -198,7 +198,7 @@
 
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .erebor-weekday-item-wrapper {
         width: calc(700% / 8);
     }

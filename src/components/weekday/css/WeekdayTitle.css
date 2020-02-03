@@ -26,7 +26,7 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .erebor-weekday-title {
         width: calc(700% / 8);
     }

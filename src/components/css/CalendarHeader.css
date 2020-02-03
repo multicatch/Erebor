@@ -29,7 +29,7 @@
     display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .erebor-calendar-header {
         padding: 0.5em;
     }
