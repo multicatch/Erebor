@@ -16,6 +16,7 @@ class WeekdayItem extends Component {
         const roomWords = this.props.item.room.split(" ")
         const roomWordsLead = roomWords[0]
         roomWords.shift()
+        const height = DateUtils.parseDuration(this.props.item.duration) * 100
 
         return (
             <div className={"erebor-weekday-item-wrapper " + this.typeClassOf(this.props.item.type) + " " + isClicked + " " + isEditable + " " + isEnabledInCustom}
@@ -23,9 +24,9 @@ class WeekdayItem extends Component {
                      "height": Timetable.HOUR_HEIGHT + "px",
                      "top": Timetable.getOffsetFor(this.props.item.startTime) + "px"
                  }}>
-                <div className={"erebor-weekday-item"}
+                <div className={"erebor-weekday-item " + (height < 100 ? "is-small" : "") + " " + (height < 75 ? "is-smaller" : "")}
                      style={{
-                         "height": "calc(" + DateUtils.parseDuration(this.props.item.duration) * 100 + "% - 1px)",
+                         "height": "calc(" + height + "% - 1px)",
                          "width": width + "%",
                          "marginLeft": left + "%"
                      }}

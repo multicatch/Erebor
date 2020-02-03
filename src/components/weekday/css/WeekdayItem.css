@@ -23,7 +23,18 @@
 .erebor-weekday-item-wrapper.is-active .erebor-weekday-item {
     margin-left: 0 !important;
     width: 100% !important;
+    height: 200% !important;
     z-index: 100;
+}
+
+.erebor-weekday-item .erebor-weekday-item-duration {
+    transition: all 0.2s ease;
+}
+
+:not(.is-active) > .erebor-weekday-item.is-small .erebor-weekday-item-duration,
+:not(.is-active) >.erebor-weekday-item.is-smaller .erebor-weekday-item-subgroup-id{
+    opacity: 0;
+    height: 0;
 }
 
 .erebor-weekday-item-title {
@@ -72,6 +83,8 @@
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 100%;
+
+    transition: all 0.2s ease;
 }
 
 .erebor-weekday-item .erebor-weekday-item-room .erebor-weekday-item-room-lead {
