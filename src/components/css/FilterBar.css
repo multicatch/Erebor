@@ -70,6 +70,17 @@
     padding-top: 0.5em;
 }
 
+.erebor-filter-bar-wrapper .erebor-filter-switch {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 0.2em;
+}
+
+.erebor-filter-bar-wrapper .erebor-filter-switch.is-grayed-out {
+    opacity: 0.4;
+}
+
 .erebor-filter-bar-wrapper .erebor-filter-section .erebor-section-label {
     font-size: 14px;
     padding-left: 0.5em;
@@ -81,7 +92,7 @@
     flex-direction: row;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-section.erebor-filter-switch .erebor-button-group {
+.erebor-filter-bar-wrapper .erebor-filter-switch .erebor-button-group {
     margin-left: auto;
     font-size: 10px;
 }

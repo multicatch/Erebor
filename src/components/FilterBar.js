@@ -9,7 +9,8 @@ class FilterBar extends Component {
     state = {
         search: '',
         groups: {},
-        manualMode: 0
+        manualMode: 0,
+        importantVisible: true
     }
 
     setState = (state, callback) => {
@@ -46,7 +47,7 @@ class FilterBar extends Component {
     setGroupFilter = (key, group) => {
         const groups = this.state.groups
         groups[key] = group
-        this.setState({ groups })
+        this.setState({groups})
     }
 
     render() {
@@ -54,6 +55,7 @@ class FilterBar extends Component {
         const isManualOff = this.state.manualMode === 0
         const isManualOn = this.state.manualMode === 1
         const isManualEdit = this.state.manualMode === 2
+        const isImportantVisible = this.state.importantVisible
 
         return (
             <div className={"erebor-filter-bar-wrapper " + (this.props.shown ? "is-shown" : "")}>
@@ -66,27 +68,49 @@ class FilterBar extends Component {
                                                            onClick={() => this.setState({search: ''})}/> : "")}
                 </div>
 
-                <div className={"erebor-filter-section erebor-filter-switch"}>
-                    <div className={"erebor-section-label"}>Własny plan</div>
-                    <div className={"erebor-button-group erebor-button-group--gray"}>
-                        <div
-                            className={"erebor-button " + (isManualOn ? "is-selected" : "")}
-                            onClick={() => this.setState({ manualMode: 1 })}
-                        >ON</div>
-                        <div
-                            className={"erebor-button " + (isManualEdit ? "is-selected" : "")}
-                            onClick={() => this.setState({ manualMode: 2 })}
-                        >EDIT</div>
-                        <div
-                            className={"erebor-button " + (isManualOff ? "is-selected" : "")}
-                            onClick={() => this.setState({ manualMode: 0 })}
-                        >OFF</div>
-                    </div>
-                </div>
-
                 <div className={"erebor-filter-section " + (groupSelectors.length < 1 ? "is-hidden" : "")}>
                     <div className="erebor-filter-section-title">Grupy zajęciowe</div>
                     {groupSelectors}
+                </div>
+
+                <div className={"erebor-filter-section"}>
+                    <div className="erebor-filter-section-title">Widoczność zajęć</div>
+
+                    <div className={"erebor-filter-switch"}>
+                        <div className={"erebor-section-label"}>Własny plan</div>
+                        <div className={"erebor-button-group erebor-button-group--gray"}>
+                            <div
+                                className={"erebor-button " + (isManualOn ? "is-selected" : "")}
+                                onClick={() => this.setState({manualMode: 1})}
+                            >ON
+                            </div>
+                            <div
+                                className={"erebor-button " + (isManualEdit ? "is-selected" : "")}
+                                onClick={() => this.setState({manualMode: 2})}
+                            >EDIT
+                            </div>
+                            <div
+                                className={"erebor-button " + (isManualOff ? "is-selected" : "")}
+                                onClick={() => this.setState({manualMode: 0})}
+                            >OFF
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"erebor-filter-switch " + (isManualOn ? "" : "is-grayed-out")}>
+                        <div className={"erebor-section-label"}>Ogłoszenia</div>
+                        <div className={"erebor-button-group erebor-button-group--gray"}>
+                            <div
+                                className={"erebor-button " + (isImportantVisible ? "is-selected" : "")}
+                                onClick={() => isManualOn && this.setState({importantVisible: true})}
+                            >ON
+                            </div>
+                            <div
+                                className={"erebor-button " + (!isImportantVisible ? "is-selected" : "")}
+                                onClick={() => isManualOn && this.setState({importantVisible: false})}
+                            >OFF
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

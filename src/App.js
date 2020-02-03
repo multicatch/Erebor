@@ -22,7 +22,7 @@ class App extends Component {
         groupSelectorShown: false,
         filterShown: false,
         query: {},
-        customTimetable: []
+        customTimetable: {}
     }
 
     componentWillMount = () => {

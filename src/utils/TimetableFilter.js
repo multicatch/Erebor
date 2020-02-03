@@ -11,7 +11,7 @@ class TimetableFilter {
         }
 
         if (query.manualMode && query.manualMode === 1) {
-            result = TimetableFilter.filterById(result, customTimetable)
+            result = TimetableFilter.filterById(result, query.importantVisible, customTimetable)
         }
 
         return result
@@ -56,9 +56,9 @@ class TimetableFilter {
         )
     }
 
-    static filterById(timetable, customTimetable) {
+    static filterById(timetable, importantVisible, customTimetable) {
         return timetable
-            .filter(event => customTimetable.indexOf(event.id) >= 0)
+            .filter(event => (importantVisible && event.type.shortcut === "PR") || customTimetable.indexOf(event.id) >= 0)
     }
 }
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import './css/WeekdayItem.css'
 import Timetable from '../../utils/Timetable'
 import DateUtils from '../../utils/DateUtils'
-import {faCalendarDay, faCheckSquare, faSquare} from '@fortawesome/free-solid-svg-icons'
+import {faCheckSquare, faSquare} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 class WeekdayItem extends Component {

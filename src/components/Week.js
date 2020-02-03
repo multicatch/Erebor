@@ -34,6 +34,7 @@ class Week extends Component {
     }
 
     render() {
+
         return (
             <div className="erebor-week-view">
                 <div className="erebor-week-view-title">
