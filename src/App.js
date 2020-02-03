@@ -31,7 +31,7 @@ class App extends Component {
         state.startOfWeek = defaultSettings.startOfWeek
         this.setState(state, () => {
             this.updateWeek()
-            this.updateTimetable(this.state.group)
+            this.updateTimetable(this.state.selectedGroup)
         })
     }
 
