@@ -30,6 +30,12 @@
     font-weight: bold;
 }
 
+.erebor-weekday-item-custom-check {
+    display: inline-block;
+    width: 0;
+    margin-right: 0;
+}
+
 .erebor-weekday-item * {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -122,6 +128,13 @@
     width: 100% !important;
     z-index: 100;
     opacity: 1;
+}
+
+.erebor-weekday-item-wrapper.is-active .erebor-weekday-item-custom-check,
+.erebor-weekday-item-wrapper.is-editable .erebor-weekday-item-custom-check {
+    display: inline;
+    width: 100%;
+    margin-right: 0.2em;
 }
 
 .erebor-weekday-item-wrapper.is-active .erebor-weekday-item * {

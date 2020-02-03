@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import './css/WeekdayItem.css'
 import Timetable from '../../utils/Timetable'
 import DateUtils from '../../utils/DateUtils'
+import {faCalendarDay, faCheckSquare, faSquare} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 class WeekdayItem extends Component {
 
@@ -30,6 +32,7 @@ class WeekdayItem extends Component {
                      onClick={() => this.props.toggleClicked(this.props.item.id)}
                 >
                     <div className="erebor-weekday-item-title ">
+                        <span className={"erebor-weekday-item-custom-check"}>{(this.props.isEnabledInCustom ? <FontAwesomeIcon icon={faCheckSquare}/> : <FontAwesomeIcon icon={faSquare}/>)}</span>
                         {this.props.item.name}
                     </div>
 
