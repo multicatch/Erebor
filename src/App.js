@@ -11,6 +11,7 @@ import Groups from './utils/Groups'
 import FilterBar from './components/FilterBar'
 import TimetableFilter from './utils/TimetableFilter'
 import SettingsRepository from './utils/SettingsRepository'
+import Url from './utils/Url'
 
 class App extends Component {
     defaultSettings = {
@@ -25,9 +26,12 @@ class App extends Component {
         customTimetable: []
     }
 
+    initialized = false
+
     componentWillMount = () => {
         const defaultSettings = this.defaultSettings
-        const state = SettingsRepository.retrieve(defaultSettings)
+        const retrievedSettings = SettingsRepository.retrieve(defaultSettings)
+        const state = Url.parse(retrievedSettings, window.location.hash)
         state.startOfWeek = defaultSettings.startOfWeek
         this.setState(state, () => {
             this.updateWeek()
@@ -42,17 +46,32 @@ class App extends Component {
                 groups: groups
             })
         })
+        window.addEventListener("hashchange", this.updateStateOnHashChange, false)
+        this.initialized = true
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateWeek);
+        window.removeEventListener("resize", this.updateWeek)
+        window.removeEventListener("hashchange", this.updateStateOnHashChange, false)
+        this.initialized = false
     }
 
-    setState = (state, callback) => {
+    setState = (state, callback, isHashChange = false) => {
         super.setState(state, () => {
             SettingsRepository.save(this.state)
-            if (callback) callback()
+            if (this.initialized && !isHashChange) {
+                window.location.hash = Url.stringify(this.state)
+            }
+            if (callback) {
+                callback()
+            }
         })
+    }
+
+    updateStateOnHashChange = () => {
+        this.setState(Url.parse(this.state, window.location.hash), () => {
+            this.updateTimetable(this.state.selectedGroup)
+        }, true)
     }
 
     updateWeek = () => {
