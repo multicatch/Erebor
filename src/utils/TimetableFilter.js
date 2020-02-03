@@ -22,7 +22,7 @@ class TimetableFilter {
             const name = item.type.shortcut
             result[name] = result[name] || []
             result[name] = Array.from(new Set([...result[name], item.students_array[0].group]))
-            result[name].sort((a, b) => parseInt(a) > parseInt(b))
+            result[name].sort((a, b) => parseInt(a) - parseInt(b))
             return result
         }, {})
     }

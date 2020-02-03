@@ -8,7 +8,7 @@ class Years extends Component {
         const groupYears = this.selectedGroupYears()
 
         if (groupYears && groupYears.length > 0) {
-            groupYears.sort((a, b) => a.year > b.year)
+            groupYears.sort((a, b) => a.year - b.year)
 
             return groupYears.map(year =>
                 <div

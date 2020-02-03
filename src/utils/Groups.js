@@ -8,7 +8,7 @@ class Groups {
     static groupIdFrom(name, groups) {
         const groupByType = Groups.groupByType(groups)
         if (groupByType[name] && groupByType[name].length > 0) {
-            groupByType[name].sort((a, b) => a.year > b.year)
+            groupByType[name].sort((a, b) => a.year - b.year)
             return groupByType[name][0].id
         } else {
             return 0
