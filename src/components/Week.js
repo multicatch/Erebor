@@ -7,6 +7,7 @@ import HoursColumn from './hours/HoursColumn'
 import WeekdayColumn from './weekday/WeekdayColumn'
 import Timetable from '../utils/Timetable'
 import html2canvas from 'html2canvas'
+import Spinner from './Spinner'
 
 class Week extends Component {
 
@@ -85,6 +86,7 @@ class Week extends Component {
                 (this.state.screenshotFlash ? "is-flash" : "")
                 }
                 ref={ref => this.ref = ref}>
+                {this.props.isLoading ? <div className={"erebor-week-loading"}><Spinner /></div> : "" }
                 <div className="erebor-week-view-title">
                     <HoursTitle/>
                     {this.weekdays()}

@@ -24,7 +24,8 @@ class App extends Component {
         groupSelectorShown: false,
         filterShown: false,
         query: [],
-        customTimetable: []
+        customTimetable: [],
+        isLoading: false
     }
 
     weekRef = React.createRef()
@@ -35,6 +36,7 @@ class App extends Component {
         const retrievedSettings = SettingsRepository.retrieve(defaultSettings)
         const state = Url.parse(retrievedSettings, window.location.hash)
         state.startOfWeek = defaultSettings.startOfWeek
+        state.isLoading = true
         this.setState(state, () => {
             this.updateWeek()
             this.updateTimetable(this.state.selectedGroup)
@@ -124,6 +126,7 @@ class App extends Component {
                     customTimetable={this.state.customTimetable[this.state.selectedGroup] || []}
                     isExtendable={this.state.query[this.state.selectedGroup] && this.state.query[this.state.selectedGroup].extend}
                     saveScreenshot={this.saveScreenshot}
+                    isLoading={this.state.isLoading}
                     ref={this.weekRef}
                 />
             </div>
@@ -157,12 +160,12 @@ class App extends Component {
 
     updateTimetable = (group) => {
         Timetable.fetchTimetable(group).then(timetable => {
-            this.setState({timetable})
+            this.setState({timetable, isLoading: false})
         })
     }
 
     selectGroup = (group) => {
-        this.setState({selectedGroup: group}, () => {
+        this.setState({selectedGroup: group, isLoading: true}, () => {
             this.updateTimetable(group)
         })
     }
