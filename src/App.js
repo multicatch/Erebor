@@ -22,7 +22,7 @@ class App extends Component {
         timetable: [],
         groupSelectorShown: false,
         filterShown: false,
-        query: {},
+        query: [],
         customTimetable: []
     }
 
@@ -103,7 +103,7 @@ class App extends Component {
                 <FilterBar
                     shown={this.state.filterShown}
                     setQuery={this.setQuery}
-                    query={this.state.query}
+                    query={this.state.query[this.state.selectedGroup] || {}}
                     groups={TimetableFilter.groupsOf(this.state.timetable)}
                 />
                 <CalendarHeader
@@ -115,11 +115,11 @@ class App extends Component {
                 <Week
                     startOfWeek={this.state.startOfWeek}
                     display={this.state.timeProgression}
-                    timetable={TimetableFilter.filter(this.state.timetable, this.state.query, this.state.customTimetable)}
-                    isEditable={this.state.query.manualMode === 2}
+                    timetable={TimetableFilter.filter(this.state.timetable, this.state.query[this.state.selectedGroup] || {}, this.state.customTimetable[this.state.selectedGroup] || [])}
+                    isEditable={this.state.query[this.state.selectedGroup] && this.state.query[this.state.selectedGroup].manualMode === 2}
                     toggleCustom={this.toggleCustom}
-                    customTimetable={this.state.customTimetable || []}
-                    isExtendable={this.state.query.extend}
+                    customTimetable={this.state.customTimetable[this.state.selectedGroup] || []}
+                    isExtendable={this.state.query[this.state.selectedGroup] && this.state.query[this.state.selectedGroup].extend}
                 />
             </div>
         )
@@ -170,19 +170,23 @@ class App extends Component {
         this.setState({filterShown: !this.state.filterShown})
     }
 
-    setQuery = (query) => {
+    setQuery = (groupQuery) => {
+        const query = this.state.query
+        query[this.state.selectedGroup] = groupQuery
         this.setState({query})
     }
 
     toggleCustom = (id) => {
-        let customTimetable = this.state.customTimetable
+        const timetables = this.state.customTimetable
+        let customTimetable = timetables[this.state.selectedGroup] || []
         if (customTimetable.indexOf(id) < 0) {
             customTimetable.push(id)
         } else {
             customTimetable = customTimetable.filter(timetableId => timetableId !== id)
         }
+        timetables[this.state.selectedGroup] = customTimetable
 
-        this.setState({ customTimetable })
+        this.setState({ customTimetable: timetables })
     }
 }
 

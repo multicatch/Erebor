@@ -21,6 +21,12 @@ class FilterBar extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.query) {
+            super.setState(nextProps.query)
+        }
+    }
+
     componentWillMount = () => {
         this.setState(this.props.query)
     }
