@@ -47,7 +47,7 @@ class Week extends Component {
                         result.top = element.offsetTop
                     }
 
-                    const rect = element.getBoundingClientRect()
+                    const rect = element.children[0].getBoundingClientRect()
                     if (rect.bottom > result.bottom) {
                         result.bottom = rect.bottom
                     }
