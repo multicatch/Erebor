@@ -13,7 +13,7 @@ class Toolbar extends Component {
                 <div className="erebor-toolbar-content">
                     <div className="erebor-toolbar-button erebor-button erebor-button--gray"
                         onClick={this.props.toggleFilter}>
-                        Filtrowanie
+                        Opcje
                     </div>
                     <div className="erebor-toolbar-title is-stretched" onClick={this.props.toggleGroupSelector}>
                         <span className="erebor-toolbar-title-content">{selectedYear ? selectedYear.name : "Wybierz kierunek"}</span>

@@ -39,7 +39,6 @@ class GroupSelector extends Component {
 
     selectedKey = (groupByType) => {
         const selectById = Groups.selectById(this.props.selectedGroup, groupByType)
-        console.log(selectById)
         if (selectById && selectById.length > 0) {
             return selectById[0].name
         } else {
@@ -49,7 +48,6 @@ class GroupSelector extends Component {
 
     selectGroup = (event) => {
         const groupId = Groups.groupIdFrom(event.target.value, this.props.groups)
-        console.log(groupId)
         this.props.selectGroup(groupId)
     }
 }

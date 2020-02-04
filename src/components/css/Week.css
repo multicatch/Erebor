@@ -4,6 +4,34 @@
 
     width: 80rem;
     max-width: 100%;
+
+    background: #fff;
+}
+
+.erebor-screenshot-view {
+    max-height: none;
+}
+
+.erebor-screenshot-view.is-flash {
+    animation-name: screenshot-flash;
+    animation-duration: 0.3s;
+    animation-iteration-count: 1;
+}
+
+@keyframes screenshot-flash {
+    0% {
+        opacity: 1;
+    }
+    10% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.erebor-screenshot-view * {
+    transition: none !important;
 }
 
 .erebor-week-view-title {
@@ -28,6 +56,11 @@
     max-height: calc(100vh - 8em);
 }
 
+.erebor-screenshot-view
+.erebor-week-view-content {
+    max-height: none;
+}
+
 .erebor-week-view-content::-webkit-scrollbar {
     display: none;
 }
@@ -39,6 +72,10 @@
     width: calc(700% / 8 - 4px);
     left: calc(100% / 8 + 4px);
     background: rgb(226, 226, 226);
+}
+
+.erebor-screenshot-view .erebor-hour-line {
+    display: none !important;
 }
 
 .erebor-week-view-content .erebor-hour-line {

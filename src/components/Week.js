@@ -6,16 +6,21 @@ import DateUtils from "../utils/DateUtils"
 import HoursColumn from './hours/HoursColumn'
 import WeekdayColumn from './weekday/WeekdayColumn'
 import Timetable from '../utils/Timetable'
+import html2canvas from 'html2canvas'
 
 class Week extends Component {
 
     static WEEK_CONTENT_OFFSET = 12
 
+    ref = React.createRef()
+
     state = {
         weekdays: ['pon.', 'wt.', 'śr.', 'czw.', 'pt.', 'sob.', 'nd.'],
         now: new Date(),
         updateLineInterval: null,
-        clickedId: null
+        clickedId: null,
+        isDuringScreenshot: false,
+        screenshotFlash: false
     }
 
     componentDidMount = () => {
@@ -33,10 +38,53 @@ class Week extends Component {
         this.setState({now: new Date()})
     }
 
-    render() {
+    screenshot = (callback) => {
+        this.setState({isDuringScreenshot: true}, () => {
+            const rect = Array.from(this.viewContent.querySelectorAll(".erebor-weekday-item-wrapper"))
+                .reduce((result, element) => {
+                    if (element.offsetTop < result.top) {
+                        result.top = element.offsetTop
+                    }
 
+                    const rect = element.getBoundingClientRect()
+                    if (rect.bottom > result.bottom) {
+                        result.bottom = rect.bottom
+                    }
+
+                    return result
+                }, {
+                    top: 100000,
+                    bottom: 0
+                })
+
+            const content = this.viewContent
+            content.style.height = (rect.bottom - rect.top) + "px"
+            content.scrollTop = rect.top
+
+            html2canvas(this.ref, {
+                height: rect.bottom - rect.top
+            })
+                .then(canvas => {
+                    this.setState({screenshotFlash: true}, () => {
+                        setTimeout(() => {
+                            this.props.saveScreenshot(canvas)
+                            this.setState({isDuringScreenshot: false, screenshotFlash: false})
+                            if (callback) callback()
+                        }, 1000)
+                    })
+                })
+        })
+    }
+
+    render() {
         return (
-            <div className={"erebor-week-view " + (this.props.isExtendable ? "erebor-extendable-view" : "")}>
+            <div
+                className={"erebor-week-view " +
+                (this.props.isExtendable ? "erebor-extendable-view " : "") +
+                (this.state.isDuringScreenshot ? "erebor-screenshot-view " : "") +
+                (this.state.screenshotFlash ? "is-flash" : "")
+                }
+                ref={ref => this.ref = ref}>
                 <div className="erebor-week-view-title">
                     <HoursTitle/>
                     {this.weekdays()}

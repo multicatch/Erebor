@@ -63,6 +63,8 @@
 
 .erebor-weekday-item .erebor-weekday-item-teacher {
     opacity: 0;
+    font-size: 10px;
+    font-weight: normal;
 
     transition: all 0.5s ease;
 }
@@ -94,6 +96,8 @@
 
 .erebor-weekday-item .erebor-weekday-item-room .erebor-weekday-item-room-other {
     opacity: 0;
+    font-size: 12px;
+    font-weight: normal;
 
     transition: all 0.5s ease;
 }
@@ -172,8 +176,14 @@
 .erebor-weekday-item-room-other,
 
 .erebor-extendable-view .erebor-weekday-item:hover
-.erebor-weekday-item-teacher {
+.erebor-weekday-item-teacher
+{
     opacity: 1;
+}
+
+.erebor-screenshot-view .erebor-weekday-item-teacher,
+.erebor-screenshot-view .erebor-weekday-item-room-other {
+    opacity: 1 !important;
 }
 
 .erebor-weekday-item-wrapper.is-laboratory.is-active .erebor-weekday-item {

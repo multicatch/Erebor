@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 
-import './css/FilterBar.css'
-import {faTimesCircle} from '@fortawesome/free-solid-svg-icons'
+import './css/OptionsBar.css'
+import {faCheck, faCopy, faImage, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {CopyToClipboard} from 'react-copy-to-clipboard'
 
-class FilterBar extends Component {
+class OptionsBar extends Component {
 
     state = {
         search: '',
         groups: {},
         manualMode: 0,
         importantVisible: true,
-        extend: false
+        extend: false,
+        copied: false
     }
 
     setState = (state, callback) => {
@@ -28,7 +30,9 @@ class FilterBar extends Component {
     }
 
     componentWillMount = () => {
-        this.setState(this.props.query)
+        this.setState(this.props.query, () => {
+            this.setState({copied: false})
+        })
     }
 
     groupSelectors = () => {
@@ -66,8 +70,8 @@ class FilterBar extends Component {
         const isExtendingHoverEnabled = this.state.extend
 
         return (
-            <div className={"erebor-filter-bar-wrapper " + (this.props.shown ? "is-shown" : "")}>
-                <div className="erebor-filter-section">
+            <div className={"erebor-options-bar-wrapper " + (this.props.shown ? "is-shown" : "")}>
+                <div className="erebor-options-section">
                     <input type="text" placeholder="Wyszukaj"
                            value={this.state.search}
                            onChange={event => this.setState({search: event.target.value})}
@@ -76,13 +80,13 @@ class FilterBar extends Component {
                                                            onClick={() => this.setState({search: ''})}/> : "")}
                 </div>
 
-                <div className={"erebor-filter-section " + (groupSelectors.length < 1 ? "is-hidden" : "")}>
-                    <div className="erebor-filter-section-title">Grupy zajęciowe</div>
+                <div className={"erebor-options-section " + (groupSelectors.length < 1 ? "is-hidden" : "")}>
+                    <div className="erebor-options-section-title">Grupy zajęciowe</div>
                     {groupSelectors}
                 </div>
 
-                <div className={"erebor-filter-section"}>
-                    <div className="erebor-filter-section-title">Konfiguracja zajęć</div>
+                <div className={"erebor-options-section"}>
+                    <div className="erebor-options-section-title">Konfiguracja zajęć</div>
                     <div className={"erebor-filter-switch"}>
                         <div className={"erebor-section-label"}>Własny plan</div>
                         <div className={"erebor-button-group erebor-button-group--gray"}>
@@ -120,8 +124,8 @@ class FilterBar extends Component {
                     </div>
                 </div>
 
-                <div className={"erebor-filter-section"}>
-                    <div className="erebor-filter-section-title">Widok</div>
+                <div className={"erebor-options-section"}>
+                    <div className="erebor-options-section-title">Widok</div>
 
                     <div className={"erebor-filter-switch"}>
                         <div className={"erebor-section-label"}>Rozwijanie</div>
@@ -139,9 +143,35 @@ class FilterBar extends Component {
                         </div>
                     </div>
                 </div>
+
+                <div className={"erebor-options-section"}>
+                    <div className="erebor-options-section-title">Udostępnianie</div>
+                    <CopyToClipboard
+                        text={window.location}
+                        onCopy={this.onSuccessfulCopy}
+                    >
+                        <div
+                            className={"erebor-button erebor-button--gray erebor-button--center"}
+                        >{this.state.copied ? <span><FontAwesomeIcon icon={faCheck}/> Skopiowano</span> : <span><FontAwesomeIcon icon={faCopy}/> Kopiuj link</span>}
+                        </div>
+                    </CopyToClipboard>
+                    <div
+                        className={"erebor-button erebor-button--gray erebor-button--center"}
+                        onClick={this.props.createScreenshot}
+                    ><FontAwesomeIcon icon={faImage}/> Zapisz jako png
+                    </div>
+                </div>
             </div>
         )
     }
+
+    onSuccessfulCopy = () => {
+        this.setState({copied: true}, () => {
+            setTimeout(() => {
+                this.setState({copied: false})
+            }, 1000)
+        })
+    }
 }
 
-export default FilterBar
+export default OptionsBar

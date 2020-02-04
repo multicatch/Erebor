@@ -6,7 +6,7 @@
     padding-left: 250px;
 }
 
-.erebor-filter-bar-wrapper {
+.erebor-options-bar-wrapper {
     position: absolute;
     left: -300px;
     top: 0;
@@ -16,14 +16,15 @@
     background: #f5f4f2;
     border-right: 1px solid #dfdddc;
     z-index: 10;
+    overflow-y: auto;
     transition: all 0.3s ease-in-out;
 }
 
-.erebor-filter-bar-wrapper.is-shown {
+.erebor-options-bar-wrapper.is-shown {
     left: 0;
 }
 
-.erebor-filter-bar-wrapper .erebor-search {
+.erebor-options-bar-wrapper .erebor-search {
     border-radius: 8px;
     padding: 0.5em;
     width: 100%;
@@ -36,12 +37,12 @@
     box-shadow: 0 0.5px 0.5px rgb(226, 226, 226);
 }
 
-.erebor-filter-bar-wrapper .erebor-search:focus {
+.erebor-options-bar-wrapper .erebor-search:focus {
     box-shadow: 0 0 0.5px rgb(79, 136, 159);
     border: 1px solid rgb(100, 172, 201);
 }
 
-.erebor-filter-bar-wrapper .erebor-delete-search {
+.erebor-options-bar-wrapper .erebor-delete-search {
     opacity: 0.5;
     display: inline;
     position: absolute;
@@ -50,11 +51,11 @@
     cursor: pointer;
 }
 
-.erebor-filter-bar-wrapper .erebor-delete-search:active {
+.erebor-options-bar-wrapper .erebor-delete-search:active {
     opacity: 0.8;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-section-title {
+.erebor-options-bar-wrapper .erebor-options-section-title {
     font-weight: bold;
     color: #9d9c9b;
     font-size: 10px;
@@ -62,37 +63,41 @@
     margin-bottom: 1em;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-section.is-hidden {
+.erebor-options-bar-wrapper .erebor-options-section.is-hidden {
     display: none;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-section {
+.erebor-options-bar-wrapper .erebor-options-section {
     padding-top: 0.5em;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-switch {
+.erebor-options-bar-wrapper .erebor-filter-switch {
     display: flex;
     align-items: center;
     flex-direction: row;
     margin-bottom: 0.2em;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-switch.is-grayed-out {
+.erebor-options-bar-wrapper .erebor-filter-switch.is-grayed-out {
     opacity: 0.4;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-section .erebor-section-label {
+.erebor-options-bar-wrapper .erebor-options-section .erebor-section-label {
     font-size: 14px;
     padding-left: 0.5em;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-section.erebor-filter-switch {
+.erebor-options-bar-wrapper .erebor-options-section.erebor-filter-switch {
     display: flex;
     align-items: center;
     flex-direction: row;
 }
 
-.erebor-filter-bar-wrapper .erebor-filter-switch .erebor-button-group {
+.erebor-options-bar-wrapper .erebor-filter-switch .erebor-button-group {
     margin-left: auto;
     font-size: 10px;
+}
+
+.erebor-options-bar-wrapper .erebor-options-section > .erebor-button {
+    margin-bottom: 0.3em;
 }

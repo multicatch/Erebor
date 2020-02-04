@@ -8,10 +8,11 @@ import DateUtils from './utils/DateUtils'
 import Timetable from './utils/Timetable'
 import GroupSelector from './components/group/GroupSelector'
 import Groups from './utils/Groups'
-import FilterBar from './components/FilterBar'
+import OptionsBar from './components/OptionsBar'
 import TimetableFilter from './utils/TimetableFilter'
 import SettingsRepository from './utils/SettingsRepository'
 import Url from './utils/Url'
+import download from 'downloadjs'
 
 class App extends Component {
     defaultSettings = {
@@ -26,6 +27,7 @@ class App extends Component {
         customTimetable: []
     }
 
+    weekRef = React.createRef()
     initialized = false
 
     componentWillMount = () => {
@@ -100,11 +102,12 @@ class App extends Component {
                     groups={this.state.groups}
                     show={this.state.groupSelectorShown}
                 />
-                <FilterBar
+                <OptionsBar
                     shown={this.state.filterShown}
                     setQuery={this.setQuery}
                     query={this.state.query[this.state.selectedGroup] || {}}
                     groups={TimetableFilter.groupsOf(this.state.timetable)}
+                    createScreenshot={this.createScreenshot}
                 />
                 <CalendarHeader
                     startOfWeek={this.state.startOfWeek}
@@ -120,6 +123,8 @@ class App extends Component {
                     toggleCustom={this.toggleCustom}
                     customTimetable={this.state.customTimetable[this.state.selectedGroup] || []}
                     isExtendable={this.state.query[this.state.selectedGroup] && this.state.query[this.state.selectedGroup].extend}
+                    saveScreenshot={this.saveScreenshot}
+                    ref={this.weekRef}
                 />
             </div>
         )
@@ -186,7 +191,29 @@ class App extends Component {
         }
         timetables[this.state.selectedGroup] = customTimetable
 
-        this.setState({ customTimetable: timetables })
+        this.setState({customTimetable: timetables})
+    }
+
+    createScreenshot = () => {
+        this.setState({
+            groupSelectorShown: false,
+            filterShown: false
+        }, () => {
+            setTimeout(() => {
+                this.weekRef.current.screenshot(() => {
+                    this.setState({
+                        filterShown: true
+                    })
+                })
+            }, 600)
+        })
+    }
+
+    saveScreenshot = (canvas) => {
+        const img = canvas.toDataURL("image/png")
+        const selectById = Groups.selectById(this.state.selectedGroup, Groups.groupByType(this.state.groups))
+        const name = (selectById && selectById.length > 0 ? selectById[0].name : "Erebor")
+        download(img, name + '.png')
     }
 }
 

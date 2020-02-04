@@ -38,6 +38,10 @@
     user-select: none;
 }
 
+.erebor-button--center {
+    text-align: center;
+}
+
 .erebor-button--gray:active,
 .erebor-button-group .erebor-button:active {
     background: rgb(243, 243, 243);
