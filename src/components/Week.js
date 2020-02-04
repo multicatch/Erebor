@@ -53,8 +53,8 @@ class Week extends Component {
 
                     return result
                 }, {
-                    top: 100000,
-                    bottom: 0
+                    top: Timetable.getOffsetFor("8:00"),
+                    bottom: Timetable.getOffsetFor("20:00")
                 })
 
             const content = this.viewContent
