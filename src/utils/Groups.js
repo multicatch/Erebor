@@ -1,9 +1,4 @@
 class Groups {
-    static fetchGroups() {
-        return fetch("https://erebor.vpcloud.eu/api/students/")
-            .then(response => response.json())
-            .then(data => data.result.array)
-    }
 
     static groupIdFrom(name, groups) {
         const groupByType = Groups.groupByType(groups)

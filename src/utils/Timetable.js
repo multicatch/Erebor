@@ -47,13 +47,7 @@ class Timetable {
                 return isMatching
             })
     }
-
-    static fetchTimetable(group) {
-        return fetch("https://erebor.vpcloud.eu/api/timetable/?id=" + group)
-            .then(response => response.json())
-            .then(data => data.result.array)
-    }
-
+    
     static getOffsetFor(time) {
         const duration = DateUtils.parseDuration(time)
         return this.HOUR_HEIGHT * duration

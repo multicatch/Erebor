@@ -5,7 +5,6 @@ import Toolbar from './components/Toolbar'
 import CalendarHeader from './components/CalendarHeader';
 import Week from "./components/Week";
 import DateUtils from './utils/DateUtils'
-import Timetable from './utils/Timetable'
 import GroupSelector from './components/group/GroupSelector'
 import Groups from './utils/Groups'
 import OptionsBar from './components/OptionsBar'
@@ -13,6 +12,8 @@ import TimetableFilter from './utils/TimetableFilter'
 import SettingsRepository from './utils/SettingsRepository'
 import Url from './utils/Url'
 import download from 'downloadjs'
+import GroupsResource from './webservices/GroupsResource'
+import TimetableResource from './webservices/TimetableResource'
 
 class App extends Component {
     defaultSettings = {
@@ -45,7 +46,7 @@ class App extends Component {
 
     componentDidMount = () => {
         window.addEventListener("resize", this.updateWeek);
-        Groups.fetchGroups().then(groups => {
+        GroupsResource.fetch().then(groups => {
             this.setState({
                 groups: groups
             })
@@ -159,7 +160,7 @@ class App extends Component {
     }
 
     updateTimetable = (group) => {
-        Timetable.fetchTimetable(group).then(timetable => {
+        TimetableResource.fetch(group).then(timetable => {
             this.setState({timetable, isLoading: false})
         })
     }
