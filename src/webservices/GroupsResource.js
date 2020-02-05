@@ -3,7 +3,7 @@ import db from '../utils/Database'
 class GroupsResource {
     static fetch() {
         return db.groups
-            .where('timestamp').above(new Date(Date.now() - 60 * 60 * 1000 * 6))
+            .where('timestamp').above(new Date(Date.now() - 60 * 60 * 1000 * 24))
             .first(result => result.response)
             .catch(() =>
                 db.groups.clear().then(() => this.fetchFromWebservice())

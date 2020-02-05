@@ -51,7 +51,7 @@ function getFromDatabase($service, $id = null)
             $timestamp = strtotime($result['caching_date']);
             $currentTime = time();
 
-            if (($currentTime - $timestamp) < (12 * 60 * 60)) {
+            if (($currentTime - $timestamp) < (6 * 60 * 60)) {
                 return $result['response'];
             }
         }
