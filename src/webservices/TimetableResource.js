@@ -39,7 +39,7 @@ class TimetableResource {
         return fetch("https://erebor.vpcloud.eu/api/timetable/?id=" + group)
             .then(response => {
                 if (response.ok) {
-                    response.json()
+                    return response.json()
                 }
                 throw new Error(`Cannot fetch timetable for ${group} - service unavailable`)
             })

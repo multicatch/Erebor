@@ -43,7 +43,7 @@ class GroupsResource {
         return fetch("https://erebor.vpcloud.eu/api/students/")
             .then(response => {
                 if (response.ok) {
-                    response.json()
+                    return response.json()
                 }
                 throw new Error("Cannot fetch groups - service unavailable")
             })
