@@ -104,6 +104,7 @@ class App extends Component {
                     selectGroup={this.selectGroup}
                     groups={this.state.groups}
                     show={this.state.groupSelectorShown}
+                    toggleGroupSelector={this.toggleGroupSelector}
                 />
                 <OptionsBar
                     shown={this.state.filterShown}

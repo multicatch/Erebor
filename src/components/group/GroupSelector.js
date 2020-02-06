@@ -5,17 +5,17 @@ import Years from './Years'
 
 class GroupSelector extends Component {
 
+    selectorRef = React.createRef()
+
     render() {
         const showState = (this.props.show ? "is-shown" : "is-hidden")
-
-
         const groupByType = Groups.groupByType(this.props.groups)
         const groupKeys = Object.keys(groupByType)
         groupKeys.sort()
 
         return (
-            <div className={"erebor-group-selector-wrapper " + showState}>
-                <div className={"erebor-group-selector-content"}>
+            <div className={"erebor-group-selector-wrapper " + showState} onClick={this.toggleSelector}>
+                <div className={"erebor-group-selector-content"} ref={this.selectorRef}>
                     <select
                         className={"erebor-group-selector-select erebor-dropdown-select"}
                         onChange={this.selectGroup}
@@ -49,6 +49,15 @@ class GroupSelector extends Component {
     selectGroup = (event) => {
         const groupId = Groups.groupIdFrom(event.target.value, this.props.groups)
         this.props.selectGroup(groupId)
+    }
+
+    toggleSelector = (event) => {
+        if (this.selectorRef
+            && this.selectorRef.current
+            && !this.selectorRef.current.contains(event.target)
+        ) {
+            this.props.toggleGroupSelector()
+        }
     }
 }
 
