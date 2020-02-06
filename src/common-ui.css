@@ -69,6 +69,7 @@
     border: 1px solid rgb(231, 231, 231);
 
     text-align: center;
+    text-align-last:center;
 
     appearance: none;
     background: rgb(255, 255, 255);
