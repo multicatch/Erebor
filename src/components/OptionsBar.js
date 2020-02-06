@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 import './css/OptionsBar.css'
-import {faCheck, faCopy, faImage, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
+import {faCheck, faCopy, faImage, faThumbtack, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
 
@@ -13,8 +13,11 @@ class OptionsBar extends Component {
         manualMode: 0,
         importantVisible: true,
         extend: false,
-        copied: false
+        copied: false,
+        canInstall: false
     }
+
+    installPrompt = null
 
     setState = (state, callback) => {
         super.setState(state, () => {
@@ -33,6 +36,12 @@ class OptionsBar extends Component {
         this.setState(this.props.query, () => {
             this.setState({copied: false})
         })
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this.installPrompt = e;
+            this.setState({canInstall: true})
+        });
     }
 
     groupSelectors = () => {
@@ -152,13 +161,19 @@ class OptionsBar extends Component {
                     >
                         <div
                             className={"erebor-button erebor-button--gray erebor-button--center"}
-                        >{this.state.copied ? <span><FontAwesomeIcon icon={faCheck}/> Skopiowano</span> : <span><FontAwesomeIcon icon={faCopy}/> Kopiuj link</span>}
+                        >{this.state.copied ? <span><FontAwesomeIcon icon={faCheck}/> Skopiowano</span> :
+                            <span><FontAwesomeIcon icon={faCopy}/> Kopiuj link</span>}
                         </div>
                     </CopyToClipboard>
                     <div
                         className={"erebor-button erebor-button--gray erebor-button--center"}
                         onClick={this.props.createScreenshot}
                     ><FontAwesomeIcon icon={faImage}/> Zapisz jako png
+                    </div>
+                    <div
+                        className={"erebor-button erebor-button--gray erebor-button--center " + (this.state.canInstall ? "" : "no-display")}
+                        onClick={this.install}
+                    ><FontAwesomeIcon icon={faThumbtack}/> Zainstaluj
                     </div>
                 </div>
             </div>
@@ -171,6 +186,18 @@ class OptionsBar extends Component {
                 this.setState({copied: false})
             }, 1000)
         })
+    }
+
+    install = () => {
+        this.installPrompt.prompt();
+        this.installPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt');
+            } else {
+                console.log('User dismissed the A2HS prompt');
+            }
+            this.setState({canInstall: false});
+        });
     }
 }
 

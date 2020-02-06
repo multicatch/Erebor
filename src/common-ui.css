@@ -26,6 +26,10 @@
     border-top-right-radius: 8px;
 }
 
+.erebor-button.no-display {
+    display: none;
+}
+
 .erebor-button--gray,
 .erebor-button-group--gray {
     font-size: 12px;
