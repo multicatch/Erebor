@@ -17,6 +17,7 @@ class GroupsResource {
                             console.error("Are you using private mode? Cache will be disabled. Major slowdowns are to be expected!\n\nError: " + e.message)
                             return result
                         })
+                    return result
                 }
             )
     }
