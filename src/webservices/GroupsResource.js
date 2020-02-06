@@ -7,17 +7,19 @@ class GroupsResource {
             .where("timestamp").above(new Date(Date.now() - 60 * 60 * 1000 * 24))
             .first(result => result.response)
             .catch(() => {
-                    const result = GroupsResource.fetchFromWebservice()
-                    db.groups.clear()
-                        .then(() => db.groups.put({
-                            "timestamp": new Date(),
-                            "response": result
-                        }))
-                        .catch(Dexie.OpenFailedError, (e) => {
-                            console.error("Are you using private mode? Cache will be disabled. Major slowdowns are to be expected!\n\nError: " + e.message)
+                    return GroupsResource.fetchFromWebservice()
+                        .then(result => {
+                            db.groups.clear()
+                                .then(() => db.groups.put({
+                                    "timestamp": new Date(),
+                                    "response": result
+                                }))
+                                .catch(Dexie.OpenFailedError, (e) => {
+                                    console.error("Are you using private mode? Cache will be disabled. Major slowdowns are to be expected!\n\nError: " + e.message)
+                                    return result
+                                })
                             return result
                         })
-                    return result
                 }
             )
     }

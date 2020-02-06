@@ -7,14 +7,16 @@ class TimetableResource {
             .and(item => item.timestamp > new Date(Date.now() - 60 * 60 * 1000 * 6))
             .first(result => result.response)
             .catch(() => {
-                const result = TimetableResource.fetchFromWebservice(group)
-                db.timetables
-                    .put({
-                        "id": group,
-                        "timestamp": new Date(),
-                        "response": result
+                return TimetableResource.fetchFromWebservice(group)
+                    .then(result => {
+                        db.timetables
+                            .put({
+                                "id": group,
+                                "timestamp": new Date(),
+                                "response": result
+                            })
+                        return result
                     })
-                return result
             })
     }
 
