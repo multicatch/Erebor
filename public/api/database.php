@@ -23,7 +23,7 @@ function getOrUpdate($service, $id, $supplier) {
     }
 
     $response = $supplier();
-    if ($response != null && json_decode($response)['status'] === 'ok') {
+    if ($response != null && json_decode($response)->status === 'ok') {
         updateDatabase($service, $id, $response);
         return $response;
     }
