@@ -26,7 +26,7 @@ class Week extends Component {
 
     componentDidMount = () => {
         const height = this.viewContent.scrollHeight
-        this.viewContent.scrollTop = 8 * height / 24
+        this.viewContent.scrollTop = this.state.now.getUTCHours() * height / 24
 
         this.setState({updateLineInterval: setInterval(this.updateTime, 60000)})
     }
