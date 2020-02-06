@@ -8,6 +8,6 @@ header("Content-Type: application/json");
 
 $id = $_GET['id'];
 
-echo getOrUpdate("activity_list_for_students", $id, function () use ($id) {
+printOrError(getOrUpdate("activity_list_for_students", $id, function () use ($id) {
     return getFromApi("activity_list_for_students", '{"id":"' . $id . '"}');
-});
+}));

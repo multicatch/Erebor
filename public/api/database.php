@@ -18,14 +18,21 @@ function onPdoErrorNull($supplier)
 
 function getOrUpdate($service, $id, $supplier) {
     $fromDatabase = getFromDatabase($service, $id);
-    if ($fromDatabase != null) {
-        return $fromDatabase;
+    if ($fromDatabase != null && !isOld($fromDatabase)) {
+        return $fromDatabase['response'];
     }
 
     $response = $supplier();
-    updateDatabase($service, $id, $response);
+    if ($response != null && json_decode($response)['status'] === 'ok') {
+        updateDatabase($service, $id, $response);
+        return $response;
+    }
 
-    return $response;
+    if ($fromDatabase != null) {
+        return $fromDatabase['response'];
+    }
+
+    return null;
 }
 
 function getFromDatabase($service, $id = null)
@@ -48,16 +55,18 @@ function getFromDatabase($service, $id = null)
         $result = $statement->fetch();
 
         if ($result) {
-            $timestamp = strtotime($result['caching_date']);
-            $currentTime = time();
-
-            if (($currentTime - $timestamp) < (6 * 60 * 60)) {
-                return $result['response'];
-            }
+            return $result;
         }
 
         return null;
     });
+}
+
+function isOld($result) {
+    $timestamp = strtotime($result['caching_date']);
+    $currentTime = time();
+
+    return ($currentTime - $timestamp) < (6 * 60 * 60);
 }
 
 function updateDatabase($service, $id, $response) {

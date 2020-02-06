@@ -37,3 +37,11 @@ function getFromApi($resource, $data = "") {
     $context  = stream_context_create($options);
     return file_get_contents($url, false, $context);
 }
+
+function printOrError($response) {
+    if ($response != null) {
+        echo $response;
+    } else {
+        http_response_code(503);
+    }
+}

@@ -6,6 +6,6 @@ cors();
 
 header("Content-Type: application/json");
 
-echo getOrUpdate("students_list", null, function() {
+printOrError(getOrUpdate("students_list", null, function() {
     return getFromApi("students_list");
-});
+}));
