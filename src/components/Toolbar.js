@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import './css/Toolbar.css'
 import Groups from '../utils/Groups'
 import Years from './group/Years'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faBars} from '@fortawesome/free-solid-svg-icons'
 
 class Toolbar extends Component {
 
@@ -18,6 +20,7 @@ class Toolbar extends Component {
                     <div className="erebor-toolbar-title is-stretched" onClick={this.props.toggleGroupSelector}>
                         <span className="erebor-toolbar-title-content">{selectedYear ? selectedYear.name : "Wybierz kierunek"}</span>
                         <span className="erebor-toolbar-title-year">{selectedYear ? selectedYear.year : ""}</span>
+                        <span className="erebor-toolbar-title-ellipsis"><FontAwesomeIcon icon={faBars} /></span>
                     </div>
                     <div className="erebor-toolbar-years">
                         <Years

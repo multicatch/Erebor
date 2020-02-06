@@ -35,6 +35,7 @@ body {
 .erebor-toolbar-title {
     min-width: 0;
     padding-top: 0.25em;
+    padding-left: 0.5em;
     text-decoration: underline rgb(214, 214, 214);
     cursor: pointer;
     flex-shrink: 1;
@@ -52,6 +53,11 @@ body {
 .erebor-toolbar-title-year {
     display: none;
     padding: 0 0.25em;
+}
+
+.erebor-toolbar-title-ellipsis {
+    font-size: 0.8em;
+    padding-left: 0.5em;
 }
 
 .is-stretched {
