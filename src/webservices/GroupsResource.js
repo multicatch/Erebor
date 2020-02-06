@@ -40,7 +40,7 @@ class GroupsResource {
     }
 
     static fetchFromWebservice() {
-        return fetch("https://erebor.vpcloud.eu/api/students_test/")
+        return fetch("https://erebor.vpcloud.eu/api/students/")
             .then(response => {
                 if (response.ok) {
                     response.json()
