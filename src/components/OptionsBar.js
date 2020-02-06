@@ -20,10 +20,23 @@ class OptionsBar extends Component {
     installPrompt = null
 
     setState = (state, callback) => {
+        if (state.groups) {
+            state.groups = this.removeEmpty(state.groups)
+        }
+
         super.setState(state, () => {
             this.props.setQuery(this.state)
             if (callback) callback()
         })
+    }
+
+    removeEmpty = (groups) => {
+        return Object.keys(groups)
+            .filter(key => groups[key] && groups[key] !== "")
+            .reduce((result, key) => {
+                result[key] = groups[key]
+                return result
+            }, {})
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
