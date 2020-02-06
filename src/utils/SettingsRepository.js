@@ -10,7 +10,7 @@ class SettingsRepository {
         try {
             return JSON.parse(localStorage.getItem(this.REPOSITORY_KEY)) || defaultSettings
         } catch (error) {
-            console.log(error)
+            console.error(error)
             return defaultSettings
         }
     }

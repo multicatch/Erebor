@@ -1,12 +1,23 @@
 import db from '../utils/Database'
+import Dexie from 'dexie'
 
 class GroupsResource {
     static fetch() {
         return db.groups
-            .where('timestamp').above(new Date(Date.now() - 60 * 60 * 1000 * 24))
+            .where("timestamp").above(new Date(Date.now() - 60 * 60 * 1000 * 24))
             .first(result => result.response)
-            .catch(() =>
-                db.groups.clear().then(() => this.fetchFromWebservice())
+            .catch(() => {
+                    const result = GroupsResource.fetchFromWebservice()
+                    db.groups.clear()
+                        .then(() => db.groups.put({
+                            "timestamp": new Date(),
+                            "response": result
+                        }))
+                        .catch(Dexie.OpenFailedError, (e) => {
+                            console.error("Are you using private mode? Cache will be disabled. Major slowdowns are to be expected!\n\nError: " + e.message)
+                            return result
+                        })
+                }
             )
     }
 
@@ -14,14 +25,6 @@ class GroupsResource {
         return fetch("https://erebor.vpcloud.eu/api/students/")
             .then(response => response.json())
             .then(data => data.result.array)
-            .then(data => {
-                db.groups
-                    .put({
-                        "timestamp": new Date(),
-                        "response": data
-                    })
-                return data
-            })
     }
 }
 
