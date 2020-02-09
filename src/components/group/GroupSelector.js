@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import './css/GroupSelector.css'
 import Groups from '../../utils/Groups'
 import Years from './Years'
+import ReactGA from 'react-ga'
 
 class GroupSelector extends Component {
 
@@ -48,6 +49,7 @@ class GroupSelector extends Component {
 
     selectGroup = (event) => {
         const groupId = Groups.groupIdFrom(event.target.value, this.props.groups)
+        ReactGA.ga('send', 'event', 'Timetable', 'select_group', event.target.value, groupId)
         this.props.selectGroup(groupId)
     }
 

@@ -14,6 +14,7 @@ import Url from './utils/Url'
 import download from 'downloadjs'
 import GroupsResource from './webservices/GroupsResource'
 import TimetableResource from './webservices/TimetableResource'
+import ReactGA from 'react-ga'
 
 class App extends Component {
     defaultSettings = {
@@ -200,6 +201,7 @@ class App extends Component {
     }
 
     createScreenshot = () => {
+        ReactGA.ga('send', 'event', 'Timetable', 'save_image', null, this.state.selectedGroup)
         this.setState({
             groupSelectorShown: false,
             filterShown: false

@@ -4,6 +4,7 @@ import './css/OptionsBar.css'
 import {faCheck, faCopy, faImage, faThumbtack, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
+import ReactGA from 'react-ga'
 
 class OptionsBar extends Component {
 
@@ -194,6 +195,7 @@ class OptionsBar extends Component {
     }
 
     onSuccessfulCopy = () => {
+        ReactGA.ga('send', 'event', 'Timetable', 'copy_link')
         this.setState({copied: true}, () => {
             setTimeout(() => {
                 this.setState({copied: false})
@@ -202,6 +204,7 @@ class OptionsBar extends Component {
     }
 
     install = () => {
+        ReactGA.ga('send', 'event', 'Erebor', 'install_app')
         this.installPrompt.prompt();
         this.installPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
