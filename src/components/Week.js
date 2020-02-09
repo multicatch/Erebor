@@ -8,6 +8,7 @@ import WeekdayColumn from './weekday/WeekdayColumn'
 import Timetable from '../utils/Timetable'
 import html2canvas from 'html2canvas'
 import Spinner from './Spinner'
+import fullLogo from './images/full-logo.png'
 
 class Week extends Component {
 
@@ -47,9 +48,9 @@ class Week extends Component {
                         result.top = element.offsetTop
                     }
 
-                    const rect = element.children[0].getBoundingClientRect()
-                    if (rect.bottom > result.bottom) {
-                        result.bottom = rect.bottom
+                    const bottom = element.offsetTop + element.children[0].clientHeight
+                    if (bottom > result.bottom) {
+                        result.bottom = bottom
                     }
 
                     return result
@@ -58,12 +59,16 @@ class Week extends Component {
                     bottom: Timetable.getOffsetFor("20:00")
                 })
 
+            const height = rect.bottom - rect.top + this.ref.offsetTop
+
             const content = this.viewContent
-            content.style.height = (rect.bottom - rect.top) + "px"
+            content.style.height = height + "px"
             content.scrollTop = rect.top
 
+            this.screenshotLogo.style.top = this.ref.offsetTop + rect.bottom + "px"
+
             html2canvas(this.ref, {
-                height: rect.bottom - rect.top
+                height: height
             })
                 .then(canvas => {
                     this.setState({screenshotFlash: true}, () => {
@@ -98,6 +103,9 @@ class Week extends Component {
                     {this.hourSeparators()}
                     {this.currentHourLine()}
                     {this.weekdayColumns()}
+                    <img className="erebor-screenshot-logo" alt="Erebor - plan zajęć UMCS" src={fullLogo} ref={screenshotLogo => {
+                        this.screenshotLogo = screenshotLogo
+                    }} />
                 </div>
             </div>
         )
