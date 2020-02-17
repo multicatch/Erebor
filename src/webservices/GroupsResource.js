@@ -1,10 +1,16 @@
 import db from '../utils/Database'
 import Dexie from 'dexie'
+import Group from '../model/Group'
 
 class GroupsResource {
     static CACHE_TIME = 60 * 60 * 1000 * 24
 
     static fetch() {
+        return this.fetchResponse()
+            .then(result => GroupsResource.groupByType(result))
+    }
+
+    static fetchResponse() {
         let existentResult = []
 
         return db.groups
@@ -49,6 +55,23 @@ class GroupsResource {
             })
             .then(data => data.result.array)
     }
+
+    static groupByType(groups) {
+        if (!groups) {
+            return {}
+        }
+
+        return groups
+            .filter(item => item.id !== 0)
+            .map(item => new Group(item.id, item.name))
+            .reduce((result, currentGroup) => {
+                const name = currentGroup.name
+                result[name] = result[name] || []
+                result[name].push(currentGroup)
+                return result
+            }, {})
+    }
+
 }
 
 export default GroupsResource

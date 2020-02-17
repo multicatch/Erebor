@@ -35,8 +35,7 @@ class Toolbar extends Component {
     }
 
     selectedGroupYears = () => {
-        const groupByType = Groups.groupByType(this.props.groups)
-        return Groups.selectById(this.props.selectedGroup, groupByType)
+        return Groups.selectById(this.props.selectedGroup, this.props.groups)
     }
 }
 

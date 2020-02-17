@@ -10,8 +10,7 @@ class GroupSelector extends Component {
 
     render() {
         const showState = (this.props.show ? "is-shown" : "is-hidden")
-        const groupByType = Groups.groupByType(this.props.groups)
-        const groupKeys = Object.keys(groupByType)
+        const groupKeys = Object.keys(this.props.groups)
         groupKeys.sort()
 
         return (
@@ -20,7 +19,7 @@ class GroupSelector extends Component {
                     <select
                         className={"erebor-group-selector-select erebor-dropdown-select"}
                         onChange={this.selectGroup}
-                        value={this.selectedKey(groupByType)}
+                        value={this.selectedKey(this.props.groups)}
                     >
                         {groupKeys.map((key, index) =>
                             <option
@@ -48,10 +47,20 @@ class GroupSelector extends Component {
     }
 
     selectGroup = (event) => {
-        const groupId = Groups.groupIdFrom(event.target.value, this.props.groups)
+        const groupId = this.groupIdFrom(event.target.value, this.props.groups)
         ReactGA.ga('send', 'event', 'Timetable', 'select_group', event.target.value, groupId)
         this.props.selectGroup(groupId)
     }
+
+    groupIdFrom = (name, groupByType) => {
+        if (groupByType[name] && groupByType[name].length > 0) {
+            groupByType[name].sort((a, b) => a.year - b.year)
+            return groupByType[name][0].id
+        } else {
+            return 0
+        }
+    }
+
 
     toggleSelector = (event) => {
         if (this.selectorRef

@@ -19,7 +19,7 @@ import ReactGA from 'react-ga'
 class App extends Component {
     defaultSettings = {
         startOfWeek: new Date(),
-        groups: [],
+        groups: {},
         timeProgression: 0,
         selectedGroup: 0,
         timetable: [],
@@ -30,14 +30,21 @@ class App extends Component {
         isLoading: false
     }
 
+    settingsKeys = [
+        "selectedGroup",
+        "groupsSelectorShown",
+        "filterShown",
+        "query",
+        "customTimetable"
+    ]
+
     weekRef = React.createRef()
     initialized = false
 
     componentWillMount = () => {
-        const defaultSettings = this.defaultSettings
-        const retrievedSettings = SettingsRepository.retrieve(defaultSettings)
+        const retrievedSettings = SettingsRepository.retrieveFiltered(this.defaultSettings, this.settingsKeys)
         const state = Url.parse(retrievedSettings, window.location.hash)
-        state.startOfWeek = defaultSettings.startOfWeek
+        state.startOfWeek = this.defaultSettings.startOfWeek
         state.isLoading = true
         this.setState(state, () => {
             this.updateWeek()
@@ -218,7 +225,7 @@ class App extends Component {
 
     saveScreenshot = (canvas) => {
         const img = canvas.toDataURL("image/png")
-        const selectById = Groups.selectById(this.state.selectedGroup, Groups.groupByType(this.state.groups))
+        const selectById = Groups.selectById(this.state.selectedGroup, this.state.groups)
         const name = (selectById && selectById.length > 0 ? selectById[0].name : "Erebor")
         download(img, name + '.png')
     }
