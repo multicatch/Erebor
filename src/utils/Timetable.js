@@ -39,7 +39,7 @@ class Timetable {
                     const day = parseInt(until[0])
                     const month = DateUtils.monthFromRoman(until[1])
 
-                    isMatching &= month < startOfWeek.getUTCMonth()
+                    isMatching &= month > startOfWeek.getUTCMonth()
                         || (month === startOfWeek.getUTCMonth() && day >= startOfWeek.getUTCDate())
                         || DateUtils.isDayInWeek(day, month + 1, startOfWeek)
                 }

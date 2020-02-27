@@ -66,7 +66,7 @@ function isOld($result) {
     $timestamp = strtotime($result['caching_date']);
     $currentTime = time();
 
-    return ($currentTime - $timestamp) < (6 * 60 * 60);
+    return ($currentTime - $timestamp) > (6 * 60 * 60);
 }
 
 function updateDatabase($service, $id, $response) {
