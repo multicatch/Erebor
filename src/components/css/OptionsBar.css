@@ -71,6 +71,10 @@
     padding-top: 0.5em;
 }
 
+.erebor-options-bar-wrapper .erebor-options-section .erebor-options-note {
+    font-size: 10px;
+}
+
 .erebor-options-bar-wrapper .erebor-filter-switch {
     display: flex;
     align-items: center;

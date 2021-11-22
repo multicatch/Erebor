@@ -190,6 +190,10 @@ class OptionsBar extends Component {
                     ><FontAwesomeIcon icon={faThumbtack}/> Zainstaluj
                     </div>
                 </div>
+
+                <div className={"erebor-options-section"}>
+                    <div className={"erebor-options-note"}>Data synchronizacji: {this.props.updateDate}</div>
+                </div>
             </div>
         )
     }

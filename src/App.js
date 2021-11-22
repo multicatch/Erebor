@@ -120,6 +120,7 @@ class App extends Component {
                     query={this.state.query[this.state.selectedGroup] || {}}
                     groups={TimetableFilter.groupsOf(this.state.timetable.activities)}
                     createScreenshot={this.createScreenshot}
+                    updateDate={toFormattedDate(this.state.timetable.update_time)}
                 />
                 <CalendarHeader
                     startOfWeek={this.state.startOfWeek}
@@ -233,6 +234,18 @@ class App extends Component {
         const name = (selectById && selectById.length > 0 ? selectById[0].name : "Erebor")
         download(img, name + '.png')
     }
+}
+
+function toFormattedDate(seconds) {
+    const date = toDate(seconds)
+    return date.toLocaleString()
+}
+
+function toDate(seconds) {
+    const t = new Date(Date.UTC(1970, 0, 1))
+    if (!seconds) return t
+    t.setUTCSeconds(seconds)
+    return t
 }
 
 export default App
