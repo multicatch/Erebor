@@ -22,7 +22,7 @@ class App extends Component {
         groups: {},
         timeProgression: 0,
         selectedGroup: 0,
-        timetable: [],
+        timetable: {activities:[]},
         groupSelectorShown: false,
         filterShown: false,
         query: [],
@@ -118,7 +118,7 @@ class App extends Component {
                     shown={this.state.filterShown}
                     setQuery={this.setQuery}
                     query={this.state.query[this.state.selectedGroup] || {}}
-                    groups={TimetableFilter.groupsOf(this.state.timetable)}
+                    groups={TimetableFilter.groupsOf(this.state.timetable.activities)}
                     createScreenshot={this.createScreenshot}
                 />
                 <CalendarHeader
@@ -130,7 +130,7 @@ class App extends Component {
                 <Week
                     startOfWeek={this.state.startOfWeek}
                     display={this.state.timeProgression}
-                    timetable={TimetableFilter.filter(this.state.timetable, this.state.query[this.state.selectedGroup] || {}, this.state.customTimetable[this.state.selectedGroup] || [])}
+                    timetable={TimetableFilter.filter(this.state.timetable.activities, this.state.query[this.state.selectedGroup] || {}, this.state.customTimetable[this.state.selectedGroup] || [])}
                     isEditable={this.state.query[this.state.selectedGroup] && this.state.query[this.state.selectedGroup].manualMode === 2}
                     toggleCustom={this.toggleCustom}
                     customTimetable={this.state.customTimetable[this.state.selectedGroup] || []}
@@ -169,7 +169,11 @@ class App extends Component {
     }
 
     updateTimetable = (group) => {
-        TimetableResource.fetch(group).then(timetable => {
+        TimetableResource.fetch(group).then(optionalTimetable => {
+            let timetable = optionalTimetable
+            if (!timetable || !timetable.activities) {
+                timetable = {activities:[]}
+            }
             this.setState({timetable, isLoading: false})
         })
     }

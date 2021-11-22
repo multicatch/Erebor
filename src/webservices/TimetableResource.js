@@ -36,15 +36,13 @@ class TimetableResource {
     }
 
     static fetchFromWebservice(group) {
-        return fetch("https://erebor.vpcloud.eu/api/timetable/?id=" + group)
+        return fetch("http://localhost:8000/timetable/moria/" + group)
             .then(response => {
                 if (response.ok) {
                     return response.json()
                 }
                 throw new Error(`Cannot fetch timetable for ${group} - service unavailable`)
             })
-            .then(data => data.result.array)
-            .then(data => data.filter(item => item === data.filter(i => i.id === item.id)[0]))
     }
 }
 

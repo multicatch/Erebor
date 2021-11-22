@@ -3,14 +3,26 @@ import DateUtils from './DateUtils'
 class Timetable {
     static HOUR_HEIGHT = 64
 
+    static DAYS_OF_WEEK = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ]
+
     static filterDayOfWeek(day, timetable) {
-        return timetable.filter(event => parseInt(event.event_array[0].weekday) === parseInt(day))
+        return timetable.filter(event =>
+            Timetable.DAYS_OF_WEEK.indexOf(event.occurrence.Regular.weekday) + 1 === parseInt(day)
+        )
     }
 
     static filterByDate(timetable, startOfWeek) {
         return timetable
             .filter(event => {
-                const subjectWords = event.subject.split(" ")
+                const subjectWords = event.name.split(" ")
                 if (/[0-9]{1,2}\\[0-9]{1,2}/.test(subjectWords[0])) {
                     const monthAndDate = subjectWords[0].split("\\")
                     const month = parseInt(monthAndDate[0])
@@ -21,7 +33,7 @@ class Timetable {
                 return true
             })
             .filter(event => {
-                const subject = event.subject
+                const subject = event.name
                 let isMatching = true
                 const sinceMatch = subject.match(/(?:OD )(?:([0-9]{1,2}\.[IVX]{1,3}))/)
                 const untilMatch = subject.match(/(?:DO )(?:([0-9]{1,2}\.[IVX]{1,3}))/)
@@ -68,12 +80,12 @@ class Timetable {
     }
 
     static directlyConcurrentDataFor(item, timetable) {
-        const startTime = DateUtils.parseDuration(item.event_array[0].start_time)
-        const endTime = startTime + DateUtils.parseDuration(item.event_array[0].length)
+        const startTime = DateUtils.parseDuration(item.time.start_time)
+        const endTime = startTime + DateUtils.parseDuration(item.time.duration)
 
         return timetable.filter(otherItem => {
-            const otherStartTime = DateUtils.parseDuration(otherItem.event_array[0].start_time)
-            const otherEndTime = otherStartTime + DateUtils.parseDuration(otherItem.event_array[0].length)
+            const otherStartTime = DateUtils.parseDuration(otherItem.time.start_time)
+            const otherEndTime = otherStartTime + DateUtils.parseDuration(otherItem.time.duration)
             return ((otherStartTime >= startTime && otherStartTime < endTime) ||
                 (otherEndTime > startTime && otherEndTime <= endTime))
         })

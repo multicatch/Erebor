@@ -8,7 +8,9 @@ import {faBars} from '@fortawesome/free-solid-svg-icons'
 class Toolbar extends Component {
 
     render() {
-        const selectedYear = this.selectedGroupYears().filter(group => group.id === this.props.selectedGroup)[0]
+        const selectedYear = this.selectedGroupYears().filter(group =>
+            group.id === this.props.selectedGroup || group.id === "" + this.props.selectedGroup
+        )[0]
 
         return (
             <div className="erebor-toolbar">

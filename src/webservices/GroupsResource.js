@@ -46,14 +46,13 @@ class GroupsResource {
     }
 
     static fetchFromWebservice() {
-        return fetch("https://erebor.vpcloud.eu/api/students/")
+        return fetch("http://localhost:8000/timetable/moria/")
             .then(response => {
                 if (response.ok) {
                     return response.json()
                 }
                 throw new Error("Cannot fetch groups - service unavailable")
             })
-            .then(data => data.result.array)
     }
 
     static groupByType(groups) {
@@ -63,7 +62,13 @@ class GroupsResource {
 
         return groups
             .filter(item => item.id !== 0)
-            .map(item => new Group(item.id, item.name))
+            .map(item => {
+                let year = 0
+                if (item.variant.Year) {
+                    year = item.variant.Year
+                }
+                return new Group(item.id.id, item.name, year)
+            })
             .reduce((result, currentGroup) => {
                 const name = currentGroup.name
                 result[name] = result[name] || []

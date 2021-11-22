@@ -10,15 +10,17 @@ class Years extends Component {
         if (groupYears && groupYears.length > 0) {
             groupYears.sort((a, b) => a.year - b.year)
 
-            return groupYears.map(year =>
-                <div
-                    className={"erebor-toolbar-years-button erebor-button " + (year.id === this.props.selectedGroup ? "is-selected" : "")}
+
+            return groupYears.map(year => {
+                const isSelected = year.id === this.props.selectedGroup || year.id === "" + this.props.selectedGroup
+                return (<div
+                    className={"erebor-toolbar-years-button erebor-button " + (isSelected ? "is-selected" : "")}
                     onClick={() => this.props.selectGroup(year.id)}
                     key={`erebor-year-${year.id}-toggle`}
                 >
                     {year.year}
-                </div>
-            )
+                </div>)
+            })
         } else {
             return []
         }

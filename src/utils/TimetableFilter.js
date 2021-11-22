@@ -19,9 +19,9 @@ class TimetableFilter {
 
     static groupsOf(timetable) {
         return timetable.reduce((result, item) => {
-            const name = item.type.shortcut
+            const name = item.group.symbol
             result[name] = result[name] || []
-            result[name] = Array.from(new Set([...result[name], item.students_array[0].group]))
+            result[name] = Array.from(new Set([...result[name], item.group.number]))
             result[name].sort((a, b) => parseInt(a) - parseInt(b))
             return result
         }, {})
@@ -31,10 +31,10 @@ class TimetableFilter {
         const searchQuery = query.toLowerCase()
 
         return timetable.filter(item =>
-            item['event_array'][0]['room'].toLowerCase().includes(searchQuery)
-            || item['subject'].toLowerCase().includes(searchQuery)
-            || item['teacher_array'][0]['name'].toLowerCase().includes(searchQuery)
-            || `${item.type.shortcut}${item.students_array[0].group}`.toLowerCase().includes(searchQuery.replace(" ", ""))
+            item['room'].toLowerCase().includes(searchQuery)
+            || item['name'].toLowerCase().includes(searchQuery)
+            || item['teacher'].toLowerCase().includes(searchQuery)
+            || `${item.group.symbol}${item.group.number}`.toLowerCase().includes(searchQuery.replace(" ", ""))
         )
     }
 
@@ -49,16 +49,16 @@ class TimetableFilter {
             })
 
         return timetable.filter(item => {
-                const matchingGroups = groups.filter(group => item.type.shortcut === group.type)
+                const matchingGroups = groups.filter(group => item.group.symbol === group.type)
 
-                return matchingGroups.length === 0 || matchingGroups[0].group === item.students_array[0].group
+                return matchingGroups.length === 0 || matchingGroups[0].group === item.group.number
             }
         )
     }
 
     static filterById(timetable, importantVisible, customTimetable) {
         return timetable
-            .filter(event => (importantVisible && event.type.shortcut === "PR") || customTimetable.indexOf(event.id) >= 0)
+            .filter(event => (importantVisible && event.group.symbol === "PR") || customTimetable.indexOf(event.id) >= 0)
     }
 }
 

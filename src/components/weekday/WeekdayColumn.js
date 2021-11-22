@@ -8,14 +8,14 @@ class WeekdayColumn extends Component {
     parseTimetable = () => this.props.timetable.map(item => {
         return {
             id: item.id,
-            startTime: item.event_array[0].start_time,
-            endTime: item.event_array[0].end_time,
-            duration: item.event_array[0].length,
-            room: item.event_array[0].room,
-            name: item.subject,
-            teacher: item.teacher_array[0].name,
-            type: item.type.shortcut,
-            groupId: item.students_array[0].groups && item.students_array[0].groups !== "1" ? item.students_array[0].group : undefined,
+            startTime: item.time.start_time,
+            endTime: item.time.end_time,
+            duration: item.time.duration,
+            room: item.room,
+            name: item.name,
+            teacher: item.teacher,
+            type: item.group.symbol,
+            groupId: item.group.number,
             concurrent: Timetable.concurrentDataOf(item, this.props.timetable),
         }
     })
