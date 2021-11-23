@@ -17,7 +17,7 @@ class GroupsResource {
             .limit(1)
             .first(result => {
                 existentResult = result.response || []
-                if (result.timestamp > new Date(Date.now() - this.CACHE_TIME) && result.response) {
+                if (result.timestamp > new Date(Date.now() - this.CACHE_TIME) && result.response && result.response > 1) {
                     return result.response
                 } else {
                     throw new Dexie.NotFoundError("Group too old")
@@ -26,8 +26,8 @@ class GroupsResource {
             .catch(() => {
                     return GroupsResource.fetchFromWebservice()
                         .then(result => {
-                            db.groups.clear()
-                                .then(() => db.groups.put({
+                            db.groupsv2.clear()
+                                .then(() => db.groupsv2.put({
                                     "timestamp": new Date(),
                                     "response": result
                                 }))

@@ -5,12 +5,14 @@ class TimetableResource {
     static CACHE_TIME = 60 * 60 * 1000 * 6
 
     static fetch(group) {
-        let existentResult = []
+        let existentResult = {activities:[]}
 
         return db.timetablesv2
             .where("id").equals(group)
             .first(result => {
-                existentResult = result.response || []
+                if (result.response) {
+                    existentResult = result.response
+                }
                 if (result.timestamp > new Date(Date.now() - this.CACHE_TIME)) {
                     return result.response
                 } else {
@@ -20,7 +22,7 @@ class TimetableResource {
             .catch(() => {
                 return TimetableResource.fetchFromWebservice(group)
                     .then(result => {
-                        db.timetables
+                        db.timetablesv2
                             .put({
                                 "id": group,
                                 "timestamp": new Date(),
