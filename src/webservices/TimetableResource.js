@@ -7,7 +7,7 @@ class TimetableResource {
     static fetch(group) {
         let existentResult = []
 
-        return db.timetables
+        return db.timetablesv2
             .where("id").equals(group)
             .first(result => {
                 existentResult = result.response || []
@@ -36,7 +36,7 @@ class TimetableResource {
     }
 
     static fetchFromWebservice(group) {
-        return fetch("http://localhost:8000/timetable/moria/" + group)
+        return fetch("https://erebor.vpcloud.eu:8043/timetable/moria/" + group)
             .then(response => {
                 if (response.ok) {
                     return response.json()

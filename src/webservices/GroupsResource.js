@@ -13,7 +13,7 @@ class GroupsResource {
     static fetchResponse() {
         let existentResult = []
 
-        return db.groups
+        return db.groupsv2
             .limit(1)
             .first(result => {
                 existentResult = result.response || []
@@ -46,7 +46,7 @@ class GroupsResource {
     }
 
     static fetchFromWebservice() {
-        return fetch("http://localhost:8000/timetable/moria/")
+        return fetch("https://erebor.vpcloud.eu:8043/timetable/moria/")
             .then(response => {
                 if (response.ok) {
                     return response.json()
